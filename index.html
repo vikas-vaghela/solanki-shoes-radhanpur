@@ -1,0 +1,1277 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solanki Shoes | Step Into Style</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{--ink:#171717;--gold:#b89555;--gold-light:#e8d5a7;--cream:#f7f4ed;--muted:#77736c;--border:#eae6de}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--ink);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+
+/* WELCOME */
+.welcome{position:fixed;inset:0;background:#101010;z-index:1000;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;transition:opacity .7s,visibility .7s;overflow:hidden}
+.welcome:before,.welcome:after{content:"";position:absolute;width:340px;height:340px;border:1px solid rgba(184,149,85,.25);border-radius:50%;animation:spin 18s linear infinite}
+.welcome:after{width:440px;height:440px;border-style:dashed;animation-direction:reverse}
+.welcome.hide{opacity:0;visibility:hidden;pointer-events:none}
+.welcome-inner{padding:25px;position:relative;z-index:2}
+.welcome .brand{font:600 clamp(36px,7vw,62px)/1.12 'Playfair Display',serif;color:#e4d2aa;letter-spacing:2px;text-shadow:0 8px 30px #0008}
+.welcome .brand small{font:600 10px 'DM Sans',sans-serif;letter-spacing:5px;display:block;margin-top:12px;color:#c5a66a}
+.welcome-line{height:1px;width:70px;background:var(--gold);margin:20px auto}
+.welcome-title{font-size:13px;letter-spacing:4px;text-transform:uppercase;color:#c5b99f;margin:0 0 26px}
+.welcome button{background:transparent;border:1px solid #c5a66a;color:#e4d2aa;padding:14px 30px;letter-spacing:2px;text-transform:uppercase;font-size:10px;transition:.3s}
+.welcome button:hover{background:var(--gold);color:#151515;box-shadow:0 0 30px #b8955580}
+
+/* HEADER */
+.announcement{min-height:34px;background:#171717;color:var(--gold-light);display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:7px 12px;text-align:center}
+.site-header{height:86px;background:#fff;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 5.2%;border-bottom:1px solid #eee;position:sticky;top:0;z-index:50;transition:box-shadow .3s}
+.site-header.scrolled{box-shadow:0 8px 30px #0000000c}
+.nav-left,.nav-right{display:flex;align-items:center;gap:28px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase}
+.nav-left a,.nav-right button{transition:.25s;background:none;border:0;padding:0;color:var(--ink);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500}
+.nav-left a:hover,.nav-right button:hover{color:var(--gold)}
+.brand-wrap{display:flex;align-items:center;justify-content:center}
+.brand-logo{max-width:210px;max-height:68px;width:auto;height:auto;object-fit:contain;display:block}
+.brand-text-fallback{font-family:'Playfair Display',serif;font-size:28px;font-weight:600;letter-spacing:2px;white-space:nowrap;text-align:center}
+.brand-text-fallback small{display:block;font:600 9px 'DM Sans',sans-serif;letter-spacing:6px;margin-top:2px;color:var(--gold)}
+.nav-right{justify-content:flex-end;gap:20px}
+.icon-link{display:flex;align-items:center;gap:7px;position:relative}
+.icon{width:18px;height:18px;display:inline-block}
+.cart-badge{background:var(--gold);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:99px;margin-left:2px}
+.menu-btn{display:none;background:none;border:0;font-size:24px;padding:4px;color:var(--ink)}
+.search-bar-wrap{display:none;background:var(--cream);padding:16px 5.2%;border-bottom:1px solid var(--border);position:sticky;top:86px;z-index:45}
+.search-bar-wrap.open{display:block}
+.search-bar-inner{max-width:680px;margin:0 auto;display:flex;gap:10px}
+.search-bar-inner input{flex:1;padding:12px 16px;border:1px solid #d5cfc4;background:#fff;font-size:14px;outline:none}
+.search-bar-inner input:focus{border-color:var(--gold)}
+.search-bar-inner button{background:var(--ink);color:#fff;border:0;padding:0 20px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase}
+.mobile-drawer{position:fixed;inset:0;background:#0008;z-index:200;display:none;backdrop-filter:blur(5px)}
+.mobile-drawer.open{display:block}
+.mobile-panel{width:280px;height:100%;background:#fff;padding:28px 24px;display:flex;flex-direction:column;gap:20px;animation:slideIn .35s ease}
+.mobile-panel a{font-size:14px;letter-spacing:1.5px;text-transform:uppercase;padding-bottom:12px;border-bottom:1px solid #f0ece4}
+
+/* PREMIUM VIDEO / ADMIN BANNER HERO */
+.hero{min-height:430px;position:relative;display:flex;align-items:center;overflow:hidden;background:#101010;color:#fff;isolation:isolate}
+.hero:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(10,10,10,.42) 0%,rgba(10,10,10,.18) 42%,rgba(10,10,10,.03) 100%);pointer-events:none}
+.hero:after{display:none!important}
+.hero-video,.hero-admin-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
+.hero-copy{position:relative;z-index:2;padding:65px 8%;display:flex;flex-direction:column;align-items:flex-start;max-width:720px;animation:heroTextIn .9s ease both}
+.eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#d4b477}
+.hero h1{font:500 clamp(28px,3.2vw,42px)/1.2 'Playfair Display',serif;margin:12px 0;color:#fff;max-width:500px}
+.hero p{color:#f0eee9;line-height:1.7;max-width:410px;font-size:12px;margin:0}
+.hero-highlights{display:flex;flex-wrap:wrap;gap:14px;margin-top:18px;color:#e8d5a7;font-size:10px;letter-spacing:.3px}
+.hero-highlights span{display:flex;align-items:center;gap:6px}
+.cta{margin-top:24px;background:var(--gold);color:#fff;padding:13px 26px;font-size:10px;font-weight:600;letter-spacing:1.7px;text-transform:uppercase;border:1px solid var(--gold);transition:.3s;display:inline-block;position:relative;overflow:hidden}
+.cta:before{content:"";position:absolute;top:0;left:-120%;width:70%;height:100%;background:linear-gradient(90deg,transparent,#ffffff55,transparent);transform:skewX(-25deg);transition:.6s}
+.cta:hover:before{left:150%}
+.cta:hover{background:transparent;color:var(--gold-light);transform:translateY(-3px);box-shadow:0 12px 28px #0005}
+
+/* TRUST */
+.trust-row{display:grid;grid-template-columns:repeat(4,1fr);background:#f8f6f1;border-bottom:1px solid #eee}
+.trust{padding:22px 12px;text-align:center;border-right:1px solid #e9e4da;transition:.3s}
+.trust:hover{background:#fff;transform:translateY(-4px);box-shadow:0 12px 25px #00000008}
+.trust:last-child{border-right:0}
+.trust strong{display:block;font-size:12px;letter-spacing:.5px;text-transform:uppercase}
+.trust span{display:block;color:var(--muted);font-size:11px;margin-top:5px}
+
+/* SECTIONS */
+.section{padding:72px 5.2%}
+.section-head{text-align:center;margin-bottom:35px}
+.section-head .eyebrow{color:#8d7041;font-size:10px}
+.section-head h2{font:500 38px 'Playfair Display',serif;margin:10px 0}
+.section-head p{color:var(--muted);font-size:13px;margin:0}
+.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;perspective:1000px}
+.category{height:310px;position:relative;overflow:hidden;background:#eee;cursor:pointer;transform-style:preserve-3d;transition:transform .4s,box-shadow .4s}
+.category img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.category:hover img{transform:scale(1.12)}
+.category:after{content:'';position:absolute;inset:35% 0 0;background:linear-gradient(transparent,#000b)}
+.category:hover{box-shadow:0 25px 45px #0003}
+.category-label{position:absolute;z-index:1;bottom:24px;left:25px;color:#fff;transform:translateZ(35px)}
+.category-label h3{font:500 26px 'Playfair Display',serif;margin:0 0 6px}
+.category-label span{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-light)}
+
+/* PRODUCTS */
+.toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:15px;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.filter-tabs{display:flex;flex-wrap:wrap;gap:8px}
+.filter-btn{background:var(--cream);border:1px solid var(--border);padding:8px 18px;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink);transition:.2s}
+.filter-btn.active,.filter-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.size-guide-btn{background:none;border:1px solid var(--gold);color:#8d7041;padding:8px 16px;font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.size-guide-btn:hover{background:var(--gold);color:#fff}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;perspective:1200px}
+.product-card{cursor:pointer;border:1px solid #f0ece4;background:#fff;display:flex;flex-direction:column;transition:box-shadow .35s,border-color .35s;transform-style:preserve-3d;will-change:transform}
+.product-card:hover{box-shadow:0 22px 45px #00000016;border-color:#d8c49e}
+.product-image{height:255px;background:#f5f3ef;overflow:hidden;position:relative;cursor:pointer;transform:translateZ(10px)}
+.product-image img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.product-card:hover .product-image img{transform:scale(1.07)}
+.tag{position:absolute;top:12px;left:12px;background:#171717;color:#fff;padding:5px 10px;font-size:9px;letter-spacing:1px;text-transform:uppercase;z-index:1}
+.quick-view-hint{position:absolute;bottom:10px;right:10px;background:#fffffff0;color:var(--ink);padding:5px 10px;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.product-info{padding:15px;flex:1;display:flex;flex-direction:column}
+.rating{color:var(--gold);font-size:12px;margin-bottom:4px}
+.product-info h3{font-size:14px;font-weight:600;margin:0 0 4px;cursor:pointer}
+.product-info p.desc{font-size:12px;color:var(--muted);margin:0 0 10px}
+.price-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.price{font-size:15px;font-weight:700;color:var(--ink)}
+.old-price{font-size:12px;color:#999;text-decoration:line-through}
+.size-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.size-options{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.size-pill{border:1px solid #dcd6cb;background:#fff;padding:4px 8px;font-size:11px;color:var(--ink);transition:.2s}
+.size-pill.selected{background:var(--ink);color:#fff;border-color:var(--ink)}
+.add-cart-btn{margin-top:auto;width:100%;background:var(--ink);color:#fff;border:0;padding:11px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;transition:.3s;position:relative;overflow:hidden}
+.add-cart-btn:hover{background:var(--gold);letter-spacing:2px;box-shadow:0 8px 18px #b8955540}
+
+/* REVIEWS & STORY */
+.reviews-section{background:var(--cream)}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.review-card{background:#fff;padding:26px;border:1px solid var(--border);transition:.35s}
+.review-card:hover{transform:translateY(-8px);box-shadow:0 18px 35px #0000000d}
+.review-card p{font-size:13px;line-height:1.7;color:#444;margin:12px 0 16px}
+.reviewer{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.reviewer span{display:block;font-weight:400;color:var(--muted);font-size:11px;margin-top:2px}
+.story{display:grid;grid-template-columns:1fr 1fr;min-height:380px;background:#171717;color:#fff;overflow:hidden}
+.story-image{overflow:hidden;perspective:900px}
+.story-image img{width:100%;height:100%;min-height:360px;object-fit:cover;transition:transform .9s}
+.story:hover .story-image img{transform:scale(1.06) rotateY(-3deg)}
+.story-copy{padding:60px 9%;display:flex;flex-direction:column;justify-content:center}
+.story-copy h2{font:500 36px 'Playfair Display',serif;margin:12px 0}
+.story-copy p{color:#c3c0ba;line-height:1.8;font-size:13px;max-width:450px}
+.story-copy .cta{align-self:flex-start;background:transparent;border-color:#c5a66a;color:#e6d4ae}
+.story-copy .cta:hover{background:var(--gold);color:#171717}
+
+/* CART */
+.drawer-overlay{position:fixed;inset:0;background:#0009;z-index:300;display:none;justify-content:flex-end;backdrop-filter:blur(4px)}
+.drawer-overlay.open{display:flex}
+.cart-drawer{width:min(410px,100vw);height:100%;background:#fff;display:flex;flex-direction:column;animation:drawerIn .35s ease}
+.drawer-head{padding:20px 24px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center}
+.drawer-head h3{font:500 22px 'Playfair Display',serif;margin:0}
+.close-btn{background:none;border:0;font-size:24px;color:var(--ink)}
+.cart-items{flex:1;overflow-y:auto;padding:20px 24px}
+.cart-item{display:flex;gap:14px;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #f0ece4}
+.cart-item img{width:70px;height:70px;object-fit:cover;background:#f5f3ef}
+.cart-item-info{flex:1}
+.cart-item-info h4{margin:0 0 4px;font-size:13px}
+.cart-item-info small{color:var(--muted);display:block;margin-bottom:6px}
+.qty-controls{display:flex;align-items:center;gap:10px}
+.qty-controls button{width:24px;height:24px;border:1px solid #ddd;background:#fff}
+.drawer-foot{padding:22px 24px;border-top:1px solid #eee;background:var(--cream)}
+.total-row{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:16px;margin-bottom:6px}
+.sub-note{font-size:11px;color:var(--muted);margin-bottom:16px}
+.buy-now-btn{width:100%;background:var(--ink);color:#fff;border:0;padding:15px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;transition:.25s}
+.buy-now-btn:hover{background:var(--gold)}
+
+/* CHECKOUT */
+.checkout-page{display:none;background:var(--cream);min-height:calc(100vh - 120px);padding:50px 5.2%}
+.checkout-page.open{display:block}
+.checkout-container{max-width:1020px;margin:0 auto}
+.back-shop-btn{background:none;border:0;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink);margin-bottom:20px;padding:0;font-weight:600}
+.back-shop-btn:hover{color:var(--gold)}
+.checkout-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:28px;align-items:start}
+.checkout-card{background:#fff;padding:28px;border:1px solid var(--border)}
+.checkout-card h3{font:500 24px 'Playfair Display',serif;margin:0 0 18px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600}
+.form-group input,.form-group textarea{padding:12px;border:1px solid #d5cfc4;font-family:inherit;font-size:14px;outline:none}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--gold)}
+.payment-options{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.pay-option{border:1px solid #d5cfc4;padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px}
+.pay-option input{accent-color:var(--ink)}
+.summary-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f0ece4;font-size:13px}
+.summary-totals{margin-top:14px;display:flex;flex-direction:column;gap:8px;font-size:13px}
+.summary-totals .grand{font-size:17px;font-weight:700;border-top:1px solid var(--border);padding-top:12px;margin-top:4px;display:flex;justify-content:space-between}
+.place-order-btn{width:100%;margin-top:18px;background:var(--ink);color:#fff;border:0;padding:15px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;transition:.25s}
+.place-order-btn:hover{background:var(--gold)}
+.place-order-btn:disabled{opacity:.6;cursor:not-allowed}
+
+/* MODALS */
+.modal-overlay{position:fixed;inset:0;background:#000a;z-index:400;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px)}
+.modal-overlay.open{display:flex}
+.modal-box{background:#fff;max-width:720px;width:100%;max-height:90vh;overflow-y:auto;padding:28px;position:relative;animation:modalIn .35s ease}
+.modal-close{position:absolute;top:16px;right:18px;background:none;border:0;font-size:24px;z-index:2}
+.qv-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+.qv-grid img{width:100%;height:300px;object-fit:cover;background:#f5f3ef}
+.size-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px}
+.size-table th,.size-table td{border:1px solid #e5e0d5;padding:10px;text-align:center}
+.size-table th{background:var(--cream)}
+
+/* FOOTER */
+.footer{background:#111;color:#eee;padding:55px 5.2% 25px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:35px}
+.footer-logo{max-width:180px;max-height:60px;object-fit:contain;display:block;margin-bottom:10px}
+.footer .brand-text-fallback{display:inline-block;font-size:25px;color:#fff;text-align:left}
+.footer p{color:#aaa;font-size:12px;line-height:1.8;max-width:300px}
+.footer h4{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4bd8d;margin-top:0}
+.footer a,.footer button.footer-link{display:block;color:#aaa;font-size:12px;margin:11px 0;background:none;border:0;padding:0;text-align:left}
+.footer a:hover,.footer button.footer-link:hover{color:var(--gold)}
+.copyright{border-top:1px solid #2b2b2b;margin-top:38px;padding-top:20px;color:#777;font-size:11px;letter-spacing:1px;text-align:center}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes heroTextIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideIn{from{transform:translateX(-100%)}to{transform:translateX(0)}}
+@keyframes drawerIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+@keyframes modalIn{from{opacity:0;transform:translateY(25px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* CUSTOMER ACCOUNT / GOOGLE + EMAIL AUTH */
+.account-nav-btn{white-space:nowrap}
+.account-text{font-size:12px}
+.account-modal-box{max-width:520px}
+.account-auth-input{width:100%;padding:13px;border:1px solid #d5cfc4;background:#fff;font:14px 'DM Sans',sans-serif;margin:5px 0 12px}
+.account-auth-input:focus{outline:none;border-color:var(--gold)}
+.auth-divider{display:flex;align-items:center;gap:12px;color:#999;font-size:11px;margin:16px 0}
+.auth-divider:before,.auth-divider:after{content:"";height:1px;background:#e8e2d8;flex:1}
+.google-login-btn{width:100%;background:#fff;color:#222;border:1px solid #d9d9d9;padding:13px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px}
+.google-login-btn:hover{background:#f8f8f8;border-color:#aaa}
+.account-message{font-size:12px;line-height:1.5;color:#9b3d2f;margin:12px 0 0}
+.order-history-card{border:1px solid var(--border);padding:15px;margin:12px 0;background:#fff}
+.order-history-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:8px}
+.order-history-id{font-weight:700;font-size:13px}
+.order-status-pill{font-size:10px;letter-spacing:.7px;text-transform:uppercase;padding:5px 8px;background:#f3eee3;color:#80612e;border-radius:20px}
+.order-history-card p{font-size:12px;color:#666;margin:5px 0;line-height:1.5}
+.order-history-items{font-size:12px;margin-top:8px;line-height:1.6}
+@media(max-width:760px){.account-text{display:none}.nav-right{gap:10px}.account-nav-btn{padding:2px}}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+ .products{grid-template-columns:repeat(3,1fr)}
+ .footer-grid{grid-template-columns:2fr 1fr 1fr}
+ .footer-grid>div:last-child{grid-column:1/-1}
+}
+@media(max-width:900px){
+ .products{grid-template-columns:repeat(2,1fr)}
+ .reviews-grid{grid-template-columns:1fr}
+ .checkout-grid{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+ .announcement{font-size:9px;letter-spacing:1.2px}
+ .site-header{height:70px;padding:0 16px;grid-template-columns:40px 1fr 78px}
+ .search-bar-wrap{top:70px}
+ .menu-btn{display:block}
+ .nav-left{display:none}
+ .brand-logo{max-width:140px;max-height:48px}
+ .brand-text-fallback{font-size:21px;letter-spacing:1.2px}
+ .brand-text-fallback small{font-size:7px;letter-spacing:4px}
+ .nav-right{gap:12px}
+ .nav-right .search-text,.nav-right .cart-text{display:none}
+ .hero{min-height:390px;align-items:center}
+ .hero:after{width:210px;height:210px;right:-85px;opacity:.5}
+ .hero-copy{padding:55px 22px;max-width:100%}
+ .hero h1{font-size:clamp(25px,7vw,32px);max-width:340px}
+ .hero p{font-size:11px;max-width:340px}
+ .hero-highlights{gap:10px 15px;font-size:10px}
+ .trust-row{grid-template-columns:repeat(2,1fr)}
+ .trust{padding:16px 8px;border-bottom:1px solid #e9e4da}
+ .section{padding:50px 16px}
+ .section-head h2{font-size:30px}
+ .categories{grid-template-columns:1fr 1fr;gap:10px}
+ .categories .category:last-child:nth-child(odd){grid-column:1/-1}
+ .category{height:200px}
+ .category:last-child{grid-column:1/-1;height:180px}
+ .category-label{left:14px;bottom:16px}
+ .category-label h3{font-size:20px}
+ .products{gap:12px}
+ .product-image{height:190px}
+ .product-info{padding:11px}
+ .product-info h3{font-size:12px}
+ .product-info p.desc{font-size:11px}
+ .size-pill{font-size:10px;padding:4px 6px}
+ .story{grid-template-columns:1fr}
+ .story-image img{min-height:250px;height:250px}
+ .story-copy{padding:36px 22px}
+ .qv-grid{grid-template-columns:1fr}
+ .qv-grid img{height:220px}
+ .form-grid{grid-template-columns:1fr}
+ .footer-grid{grid-template-columns:1fr 1fr;gap:24px 16px}
+ .footer-grid>div:first-child{grid-column:1/-1}
+ .footer-grid>div:last-child{grid-column:1/-1}
+}
+@media(max-width:380px){
+ .products{grid-template-columns:1fr}
+ .product-image{height:260px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+ .reveal{opacity:1;transform:none}
+}
+
+
+/* LUXURY HOMEPAGE DESIGN REFRESH — visual layer only */
+:root{--ink:#111;--gold:#b99a62;--gold-light:#ead9b5;--cream:#f7f5f0;--muted:#77736b;--border:#e8e2d7}
+body{background:#fff;color:#171612}
+.announcement{min-height:36px;background:#101010;color:#e8d9b8;font-size:10px;letter-spacing:2.25px}
+.site-header{height:88px;padding-inline:6%;border-bottom:1px solid #eee9df;background:rgba(255,255,255,.97);backdrop-filter:blur(14px)}
+.nav-left,.nav-right{gap:25px}
+.nav-left a,.nav-right button{font-size:11px;letter-spacing:1.65px}
+.brand-logo{max-width:220px;max-height:70px}
+.hero{min-height:560px;background:#101010}
+.hero:before{background:linear-gradient(90deg,rgba(8,8,8,.88) 0%,rgba(8,8,8,.69) 42%,rgba(8,8,8,.12) 100%),linear-gradient(0deg,rgba(0,0,0,.35),transparent 58%)}
+.hero:after{width:390px;height:390px;right:10%;border-color:#c3a36a55;box-shadow:0 0 0 22px #c3a36a0d,0 0 0 52px #c3a36a09,0 0 0 82px #c3a36a06}
+.hero-copy{padding:86px 8%;max-width:760px}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:12px;color:#e3c990;letter-spacing:3.5px}
+.hero .eyebrow:before{content:"";width:34px;height:1px;background:#c5a66a}
+.hero h1{font-size:clamp(38px,5.2vw,66px);line-height:1.08;letter-spacing:-.6px;max-width:610px;margin:20px 0 17px}
+.hero p{font-size:14px;line-height:1.9;max-width:460px;color:#e1ded7}
+.hero-highlights{gap:20px;margin-top:25px;font-size:10px;letter-spacing:.7px}
+.cta{padding:15px 32px;background:#b99a62;border-color:#b99a62;color:#111;font-size:10px;letter-spacing:2px}
+.cta:hover{color:#ead9b5;border-color:#d3b77f}
+.trust-row{background:#f8f6f1;border-bottom:1px solid #e9e3d8}
+.trust{padding:25px 12px}
+.trust strong{font-size:10px;letter-spacing:1.15px}
+.trust span{font-size:11px;color:#817b70}
+.luxury-intro{display:flex;align-items:center;justify-content:center;gap:18px;padding:29px 16px 0;background:#fff}
+.luxury-intro p{font-size:9px;letter-spacing:3px;color:#92764a;margin:0;text-align:center}
+.luxury-intro-line{height:1px;width:42px;background:#c9b184}
+.section{padding:76px 6%}
+.section-head{margin-bottom:40px}
+.section-head .eyebrow{letter-spacing:3px;color:#9a7c4b}
+.section-head h2{font-size:clamp(32px,3.4vw,44px);letter-spacing:-.5px;color:#171612}
+.section-head p{font-size:12px;letter-spacing:.2px;color:#817b70}
+.categories{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.category{height:330px;background:#e9e5dc;box-shadow:0 8px 22px #1716120a}
+.category:after{inset:20% 0 0;background:linear-gradient(180deg,transparent 15%,rgba(0,0,0,.72) 100%)}
+.category img{filter:saturate(.82);transition:transform .9s,filter .9s}
+.category:hover img{filter:saturate(1.04);transform:scale(1.08)}
+.category-label{left:20px;bottom:22px}
+.category-label h3{font-size:22px;line-height:1.15}
+.category-label span{font-size:9px;letter-spacing:1.7px}
+#products{padding-top:45px!important}
+.toolbar{border-bottom-color:#e8e2d7;padding-bottom:18px}
+.filter-btn{background:#f8f6f1;border-color:#e7e0d4;padding:9px 16px;font-size:10px;letter-spacing:1px}
+.filter-btn.active,.filter-btn:hover{background:#171612;border-color:#171612;color:#ead9b5}
+.size-guide-btn{font-size:10px;letter-spacing:1.1px;border-color:#b99a62;color:#8a6e40;padding:9px 14px}
+.products{gap:18px}
+.product-card{border:1px solid #eee9df;background:#fff;transition:transform .35s,box-shadow .35s,border-color .35s}
+.product-card:hover{box-shadow:0 18px 42px #17161212;border-color:#d5c39f}
+.product-image{height:275px;background:#f4f2ed}
+.product-image img{mix-blend-mode:multiply}
+.tag{background:#171612;color:#ead9b5;font-size:8px;letter-spacing:1.4px}
+.product-info{padding:17px}
+.product-info h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;line-height:1.35}
+.product-info p.desc{font-size:11px;line-height:1.6;color:#817b70}
+.price{font-size:16px}
+.add-cart-btn{background:#171612;color:#ead9b5;font-size:10px;letter-spacing:1.7px;padding:13px}
+.add-cart-btn:hover{background:#b99a62;color:#111}
+.reviews-section{background:#f7f5f0}
+.review-card{border-color:#e9e3d8;box-shadow:0 5px 18px #17161205}
+.review-card p{font-size:12px;line-height:1.85;color:#59564f}
+.story{background:#111;min-height:430px}
+.story-copy{padding:70px 10%}
+.story-copy h2{font-size:clamp(32px,3.5vw,44px);line-height:1.15}
+.story-copy p{font-size:13px;line-height:1.95;color:#c8c2b6}
+.footer{background:#101010;border-top:2px solid #b99a62;padding-top:62px}
+.footer h4{color:#d9c49b;letter-spacing:2.2px}
+.footer p,.footer a,.footer button.footer-link{color:#aaa59a}
+.copyright{color:#8b857a;letter-spacing:1.5px}
+@media(max-width:1100px){.categories{grid-template-columns:repeat(3,minmax(0,1fr))}.category{height:290px}}
+@media(max-width:760px){
+ .announcement{font-size:8px;letter-spacing:1px;min-height:32px}
+ .site-header{height:70px;padding:0 14px;grid-template-columns:38px 1fr 92px}
+ .brand-logo{max-width:138px;max-height:48px}
+ .hero{min-height:500px;align-items:flex-end}
+ .hero:before{background:linear-gradient(0deg,rgba(7,7,7,.48) 0%,rgba(7,7,7,.20) 52%,rgba(7,7,7,.03) 100%)}
+ .hero:after{display:none!important}
+ .hero-copy{padding:65px 22px 48px;max-width:100%}
+ .hero .eyebrow{font-size:9px;letter-spacing:2.2px}
+ .hero h1{font-size:clamp(35px,9vw,48px);max-width:360px;margin:16px 0 13px}
+ .hero p{font-size:12px;line-height:1.75;max-width:340px}
+ .hero-highlights{gap:9px 13px;margin-top:18px;font-size:9px}
+ .cta{padding:14px 24px}
+ .trust{padding:17px 7px}
+ .trust strong{font-size:9px;letter-spacing:.6px}
+ .trust span{font-size:10px}
+ .luxury-intro{padding-top:24px;gap:12px}
+ .luxury-intro p{font-size:8px;letter-spacing:2px}
+ .luxury-intro-line{width:24px}
+ .section{padding:54px 16px}
+ .section-head{margin-bottom:28px}
+ .section-head h2{font-size:32px}
+ .section-head p{font-size:11px;line-height:1.6}
+ .categories{grid-template-columns:1fr 1fr;gap:10px}
+ .category{height:205px}
+ .category:last-child{grid-column:1/-1;height:190px}
+ .category-label{left:13px;bottom:15px}
+ .category-label h3{font-size:18px}
+ .category-label span{font-size:8px;letter-spacing:1px}
+ #products{padding-top:28px!important}
+ .products{gap:11px}
+ .product-image{height:190px}
+ .product-info{padding:10px}
+ .product-info h3{font-size:13px}
+ .product-info p.desc{font-size:10px;line-height:1.45}
+ .price{font-size:14px}
+ .add-cart-btn{font-size:9px;padding:11px 5px;letter-spacing:1px}
+ .filter-tabs{gap:6px}
+ .filter-btn{padding:8px 10px;font-size:9px}
+ .size-guide-btn{padding:8px 10px;font-size:9px}
+ .story-copy{padding:40px 24px}
+ .story-copy h2{font-size:34px}
+ .footer{padding:44px 18px 22px}
+}
+@media(max-width:380px){.products{grid-template-columns:1fr 1fr}.product-image{height:170px}.product-info h3{font-size:12px}}
+
+
+/* FOOTER SOCIAL, MAP & PAYMENT DETAILS */
+.footer-extra{margin-top:22px}
+.footer-social-link{display:flex!important;align-items:center;gap:9px;width:max-content;max-width:100%;margin:10px 0!important}
+.footer-social-icon{display:inline-flex;align-items:center;justify-content:center;width:25px;height:25px;border:1px solid #b99a62;border-radius:50%;color:#e4d2aa;font-size:17px;flex:0 0 25px}
+.footer-payment{display:flex;flex-direction:column;gap:7px;color:#aaa59a;font-size:11px;line-height:1.6}
+.footer-payment .razorpay-brand{font-size:17px;letter-spacing:.3px;color:#fff;font-weight:700}
+.footer-payment span{display:block}
+@media(max-width:760px){
+ .footer-extra{margin-top:20px}
+ .footer-social-link{font-size:12px!important}
+}
+
+
+
+/* FINAL REFINEMENTS: CLEAN WHITE SURFACES + COMPACT BRAND FOOTER */
+:root{--cream:#ffffff;--border:#e9e9e9}
+.trust-row,.trust,.reviews-section,.filter-btn,.search-bar-wrap,.drawer-foot,.checkout-page,.size-table th{background-color:#fff!important}
+.trust,.trust-row{border-color:#ededed!important}
+.filter-btn{border-color:#e7e7e7!important}
+.product-image,.qv-grid img{background:#fff!important}
+.hero:before{background:linear-gradient(90deg,rgba(0,0,0,.36) 0%,rgba(0,0,0,.16) 48%,rgba(0,0,0,.02) 100%)!important,linear-gradient(0deg,rgba(0,0,0,.12),transparent 58%)!important}
+.hero:after{display:none!important}
+.footer{padding:34px 5.2% 16px!important}
+.footer-grid{gap:24px!important}
+.footer-grid p{line-height:1.65!important}
+.footer-tools{display:flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;gap:18px 25px;padding:15px 0;margin-top:17px;border-top:1px solid #303030}
+.footer-tool{display:inline-flex!important;align-items:center;gap:8px;color:#c4c0b8!important;font-size:11px!important;text-decoration:none;margin:0!important;white-space:nowrap}
+.footer-tool img{width:22px;height:22px;object-fit:contain;display:block}
+.footer-tool:hover{color:#e4d2aa!important}
+.footer-payment-info{color:#aaa59a;font-size:10px;line-height:1.55}
+.footer-payment-info strong{color:#fff;font-size:11px;letter-spacing:.5px}
+.footer-razorpay img{width:25px;height:25px}
+.copyright{margin-top:12px!important;padding-top:12px!important}
+@media(max-width:760px){
+ .footer{padding:28px 18px 14px!important}
+ .footer-grid{grid-template-columns:1fr 1fr!important;gap:18px 14px!important}
+ .footer-grid>div:first-child,.footer-grid>div:last-child{grid-column:auto!important}
+ .footer-tools{gap:13px 17px;padding:13px 0;margin-top:14px}
+ .footer-tool{font-size:10px!important}
+ .footer-tool img{width:20px;height:20px}
+ .footer-payment-info{flex-basis:100%}
+}
+@media(max-width:380px){.footer-grid{grid-template-columns:1fr!important}}
+
+</style>
+</head>
+
+<body>
+
+<div class="welcome" id="welcome">
+ <div class="welcome-inner">
+  <div class="brand">SOLANKI SHOES<small>STYLE · COMFORT · CONFIDENCE</small></div>
+  <div class="welcome-line"></div>
+  <p class="welcome-title">Welcome to Your New Favourite Shoe Store</p>
+  <button onclick="enterStore()">Enter Store</button>
+ </div>
+</div>
+
+<div class="announcement" id="announcementBar">FREE SHIPPING ACROSS INDIA  ·  PREMIUM FOOTWEAR  ·  COD AVAILABLE</div>
+
+<header class="site-header" id="siteHeader">
+ <button class="menu-btn" aria-label="Open menu" onclick="toggleMobileMenu()">☰</button>
+ <nav class="nav-left">
+  <a href="./index.html" onclick="showMainStore()">Home</a>
+  <a href="./collection.html">Collection</a>
+  <a href="./contact.html" onclick="showMainStore()">Contact</a>
+ </nav>
+ <a class="brand-wrap" href="./index.html#home" onclick="showMainStore()" aria-label="Solanki Shoes Home">
+  <img class="brand-logo" src="./logo.jpg" alt="Solanki Shoes" onerror="this.style.display='none';document.getElementById('headerFallback').style.display='block'">
+  <span id="headerFallback" class="brand-text-fallback" style="display:none">SOLANKI SHOES<small>EST. INDIA</small></span>
+ </a>
+ <div class="nav-right">
+  <button class="icon-link" onclick="toggleSearch()" aria-label="Search">
+   <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5"/></svg><span class="search-text">Search</span>
+  </button>
+  <button class="icon-link account-nav-btn" id="accountNavBtn" onclick="window.location.href='./account.html'" aria-label="My Account">
+   <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span class="account-text">Account</span>
+  </button>
+  <button class="icon-link" onclick="openCart()" aria-label="Shopping bag">
+   <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg>
+   <span class="cart-text">Bag</span><span class="cart-badge" id="cartCount">0</span>
+  </button>
+ </div>
+</header>
+
+<div class="search-bar-wrap" id="searchWrap">
+ <div class="search-bar-inner">
+  <input type="text" id="searchInput" placeholder="Search loafers, formal shoes, sneakers, mojari..." oninput="showMainStore();handleSearch()">
+  <button onclick="toggleSearch()">Close</button>
+ </div>
+</div>
+
+<div class="mobile-drawer" id="mobileDrawer" onclick="if(event.target===this)toggleMobileMenu()">
+ <div class="mobile-panel">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+   <strong style="font-family:'Playfair Display',serif;font-size:20px">Solanki Shoes</strong>
+   <button class="close-btn" onclick="toggleMobileMenu()">×</button>
+  </div>
+  <a href="./index.html#home" onclick="showMainStore();toggleMobileMenu()">Home</a>
+  <a href="./collection.html">Collection</a>
+  <a href="./contact.html">Contact</a>
+  <a href="./account.html">My Account / Orders</a>
+ </div>
+</div>
+
+<main id="mainStoreView">
+
+<section class="hero" id="home">
+ <img id="homeBannerImg" class="hero-admin-img" alt="Solanki Shoes Banner" style="display:none">
+ <video id="homeHeroVideo" class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+  <source src="./hero.mp4" type="video/mp4">
+ </video>
+ <div class="hero-copy">
+  <span class="eyebrow">WELCOME TO SOLANKI SHOES</span>
+  <h1 id="heroTitle">Step Into Style & Comfort.</h1>
+  <p id="heroSubtitle">Find stylish shoes for work, weekends and special occasions. Enjoy great comfort and everyday style at Solanki Shoes.</p>
+  <div class="hero-highlights">
+   <span>✓ Quality Shoes</span>
+   <span>✓ All-Day Comfort</span>
+   <span>✓ Everyday Style</span>
+  </div>
+  <a href="./index.html#products" class="cta">Shop Now →</a>
+ </div>
+</section>
+
+<div class="trust-row">
+ <div class="trust"><strong>Quality Footwear</strong><span>Style made for every step</span></div>
+ <div class="trust"><strong>Cash On Delivery</strong><span>Pay when your pair arrives</span></div>
+ <div class="trust"><strong>Memory Foam Sole</strong><span>All-day cushioned support</span></div>
+ <div class="trust"><strong>Fast Pan-India Delivery</strong><span>Dispatched within 24 hours</span></div>
+</div>
+
+<div class="luxury-intro" aria-label="Solanki Shoes brand promise">
+ <span class="luxury-intro-line"></span>
+ <p>THE ART OF EVERYDAY ELEGANCE</p>
+ <span class="luxury-intro-line"></span>
+</div>
+
+<section class="section reveal" id="categories">
+ <div class="section-head">
+  <span class="eyebrow">Curated Categories</span><h2>Shop By Occasion</h2>
+  <p>Click any category to filter our signature footwear collection</p>
+ </div>
+ <div class="categories">
+  <div class="category tilt-card" onclick="filterAndScroll('Loafer & Formal')">
+   <img src="https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=900&q=80" alt="Formal & Loafers">
+   <div class="category-label"><h3>Formal & Loafers</h3><span>Explore Style →</span></div>
+  </div>
+  <div class="category tilt-card" onclick="filterAndScroll('Chappal')">
+   <img src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?auto=format&fit=crop&w=900&q=80" alt="Chappal & Sandals">
+   <div class="category-label"><h3>Chappal & Sandals</h3><span>Explore Style →</span></div>
+  </div>
+  <div class="category tilt-card" onclick="filterAndScroll('Shoes')">
+   <img src="https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?auto=format&fit=crop&w=900&q=80" alt="Everyday Shoes">
+   <div class="category-label"><h3>Everyday Shoes</h3><span>Explore Style →</span></div>
+  </div>
+  <div class="category tilt-card" onclick="filterAndScroll('Sneakers')">
+   <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=80" alt="Urban Sneakers">
+   <div class="category-label"><h3>Urban Sneakers</h3><span>Explore Style →</span></div>
+  </div>
+  <div class="category tilt-card" onclick="filterAndScroll('Sports Shoes')">
+   <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80" alt="Sports Shoes">
+   <div class="category-label"><h3>Sports Shoes</h3><span>Explore Style →</span></div>
+  </div>
+ </div>
+</section>
+
+<section class="section reveal" id="products" style="padding-top:20px">
+ <div class="section-head">
+  <span class="eyebrow">Signature Lineup</span><h2>Our Collection</h2>
+  <p>Select your UK size and add to bag to proceed to checkout</p>
+ </div>
+ <div class="toolbar">
+  <div class="filter-tabs" id="filterTabs">
+   <button class="filter-btn active" data-cat="all" onclick="filterCategory('all',this)">All Shoes</button>
+   <button class="filter-btn" data-cat="Loafer & Formal" onclick="filterCategory(this.dataset.cat,this)">Loafer & Formal</button>
+   <button class="filter-btn" data-cat="Chappal" onclick="filterCategory(this.dataset.cat,this)">Chappal</button>
+   <button class="filter-btn" data-cat="Shoes" onclick="filterCategory(this.dataset.cat,this)">Shoes</button>
+   <button class="filter-btn" data-cat="Sneakers" onclick="filterCategory(this.dataset.cat,this)">Sneakers</button>
+   <button class="filter-btn" data-cat="Sports Shoes" onclick="filterCategory(this.dataset.cat,this)">Sports Shoes</button>
+  </div>
+  <button class="size-guide-btn" onclick="openModal('sizeModal')">📏 Size Guide (UK/CM)</button>
+ </div>
+ <div class="products" id="productGrid"></div>
+</section>
+
+<section class="section reviews-section reveal" id="reviews">
+ <div class="section-head"><span class="eyebrow">Verified Buyers</span><h2>What Our Customers Say</h2></div>
+ <div class="reviews-grid">
+  <div class="review-card"><div class="rating">★★★★★</div><p>"The Royal Tan Penny Loafers look like a ₹5,000 brand shoe. The cushion inside is super soft even after wearing them for 9 hours at the office."</p><div class="reviewer">Rohan Patel<span>Ahmedabad · UK 8</span></div></div>
+  <div class="review-card"><div class="rating">★★★★★</div><p>"Smooth checkout and got delivery in 3 days. Size chart helped me pick the exact fit. Definitely ordering another pair for wedding season."</p><div class="reviewer">Darshan Solanki<span>Patan · UK 9</span></div></div>
+  <div class="review-card"><div class="rating">★★★★★</div><p>"Clean finishing, zero glue marks, and great grip on the sole. Best footwear store experience with great comfort and quality."</p><div class="reviewer">Meet Desai<span>Vadodara · UK 7</span></div></div>
+ </div>
+</section>
+
+<section class="story reveal" id="story">
+ <div class="story-image"><img src="https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=1000&q=80" alt="Solanki Shoes Craftsmanship"></div>
+ <div class="story-copy">
+  <span class="eyebrow">Our Heritage</span><h2>Built On Trust & Craftsmanship</h2>
+  <p>At Solanki Shoes, every pair is selected with attention to quality, comfort and timeless design. Whether it's a wedding celebration, a business meeting, or everyday wear, find footwear that matches your style.</p>
+  <a href="./index.html#products" class="cta">Shop Best Sellers</a>
+ </div>
+</section>
+</main>
+
+<section class="checkout-page" id="checkoutPageView">
+ <div class="checkout-container">
+  <button class="back-shop-btn" onclick="showMainStore()">← Back to Shopping</button>
+  <div id="checkoutFormSection" class="checkout-grid">
+   <div class="checkout-card">
+    <h3>Delivery & Payment Details</h3>
+    <form id="orderForm" onsubmit="submitOrder(event)">
+     <div class="form-grid">
+      <div class="form-group"><label>Full Name *</label><input type="text" id="chkName" required placeholder="Enter your full name"></div>
+      <div class="form-group"><label>Mobile Number *</label><input type="tel" id="chkPhone" required pattern="[0-9]{10}" placeholder="10-digit mobile number"></div>
+      <div class="form-group full"><label>Email Address</label><input type="email" id="chkEmail" placeholder="Email for order updates"></div>
+      <div class="form-group full"><label>Full Delivery Address *</label><textarea id="chkAddress" rows="3" required placeholder="House/Flat No., Street, Landmark"></textarea></div>
+      <div class="form-group"><label>City / District *</label><input type="text" id="chkCity" required placeholder="e.g. Ahmedabad, Patan"></div>
+      <div class="form-group"><label>Pincode *</label><input type="text" id="chkPincode" required pattern="[0-9]{6}" placeholder="6-digit pincode"></div>
+     </div>
+     <div class="form-group" style="margin-top:8px">
+      <label>Select Payment Method *</label>
+      <div class="payment-options">
+       <label class="pay-option"><input type="radio" name="payMethod" value="Cash on Delivery (COD)" checked><span><strong>Cash on Delivery (COD)</strong> — Pay cash when shoes arrive</span></label>
+       <label class="pay-option"><input type="radio" name="payMethod" value="UPI / Online Payment"><span><strong>UPI / QR / NetBanking</strong> — Instant digital payment</span></label>
+      </div>
+     </div>
+     <button type="submit" class="place-order-btn" id="confirmOrderBtn">Confirm Order</button>
+    </form>
+   </div>
+   <div class="checkout-card">
+    <h3>Order Summary</h3><div id="checkoutItemsList"></div>
+    <div class="summary-totals">
+     <div style="display:flex;justify-content:space-between"><span>Subtotal (<span id="chkItemCount">0</span> items)</span><span id="chkSubtotal">₹0</span></div>
+     <div style="display:flex;justify-content:space-between;color:#1f8b4c"><span>Shipping Charges</span><span>FREE</span></div>
+     <div class="grand"><span>Total Payable</span><span id="chkGrandTotal">₹0</span></div>
+    </div>
+   </div>
+  </div>
+  <div id="orderSuccessBox" class="checkout-card" style="display:none;text-align:center;padding:50px 24px">
+   <div style="font-size:48px;color:#1f8b4c;margin-bottom:10px">✓</div>
+   <h2 style="font:500 32px 'Playfair Display',serif;margin:0 0 10px">Thank You! Your Order Is Confirmed</h2>
+   <p style="color:var(--muted);font-size:14px;max-width:480px;margin:0 auto 20px" id="orderSuccessText"></p>
+   <button class="cta" onclick="resetAfterOrder()">Continue Shopping</button>
+  </div>
+ </div>
+</section>
+
+<footer class="footer reveal" id="footer">
+ <div class="footer-grid">
+  <div>
+   <img class="footer-logo" src="./logo.jpg" alt="Solanki Shoes" onerror="this.style.display='none';document.getElementById('footerFallback').style.display='inline-block'">
+   <div id="footerFallback" class="brand-text-fallback" style="display:none">SOLANKI SHOES<small>LUXURY FOOTWEAR</small></div>
+   <p style="margin-top:14px">Premium men's formal shoes, loafers, sneakers & festive ethnic footwear. Delivering comfort and style across India.</p>
+  </div>
+  <div><h4>Quick Links</h4><a href="./index.html#home" onclick="showMainStore()">Home</a><a href="./collection.html">Collection</a><a href="./contact.html">Contact Us</a></div>
+  <div><h4>Customer Care</h4><button class="footer-link" onclick="openModal('sizeModal')">Size Chart Guide</button><a class="footer-link" href="./contact.html">Contact Support</a></div>
+  <div>
+   <h4>Store & Contact</h4>
+   <p id="footerStoreContact">Main Market Road, Gujarat, India<br>Mon – Sun: 10:00 AM – 9:00 PM<br>Phone: +91 98765 43210<br>Email: support@solankishoes.in</p>
+
+  </div>
+ </div>
+ <div class="footer-tools">
+  <a class="footer-tool" id="footerInstagramLink" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+   <img src="https://cdn.simpleicons.org/instagram/E4405F" alt="Instagram logo">
+   <span id="footerInstagramId">@your_username</span>
+  </a>
+  <a class="footer-tool" id="footerMapLink" href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer">
+   <img src="https://cdn.simpleicons.org/googlemaps/4285F4" alt="Google Maps logo">
+   <span>Find Our Store</span>
+  </a>
+  <div class="footer-tool footer-razorpay">
+   <img src="https://cdn.simpleicons.org/razorpay/ffffff" alt="Razorpay logo">
+   <span>Razorpay</span>
+  </div>
+  <div class="footer-payment-info">
+   <strong>Safe & Secure Payments</strong><br>
+   UPI · Credit / Debit Cards · Netbanking
+  </div>
+ </div>
+ <div class="copyright">© 2026 SOLANKI SHOES. ALL RIGHTS RESERVED.</div>
+</footer>
+
+<div class="drawer-overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()">
+ <div class="cart-drawer">
+  <div class="drawer-head"><h3>Shopping Bag</h3><button class="close-btn" onclick="closeCart()">×</button></div>
+  <div class="cart-items" id="cartItemsContainer"></div>
+  <div class="drawer-foot">
+   <div class="total-row"><span>Total Amount</span><span id="cartTotal">₹0</span></div>
+   <div class="sub-note">Delivery options available at checkout</div>
+   <button class="buy-now-btn" onclick="goToCheckout()">Buy Now</button>
+  </div>
+ </div>
+</div>
+
+<div class="modal-overlay" id="qvModal" onclick="if(event.target===this)closeModal('qvModal')"><div class="modal-box" id="qvContent"></div></div>
+
+<div class="modal-overlay" id="sizeModal" onclick="if(event.target===this)closeModal('sizeModal')">
+ <div class="modal-box">
+  <button class="modal-close" onclick="closeModal('sizeModal')">×</button>
+  <h3 style="font-family:'Playfair Display',serif;font-size:26px;margin-top:0">Footwear Size Chart</h3>
+  <p style="font-size:13px;color:var(--muted)">Measure your foot length from heel to longest toe in centimeters (CM) for the best fit.</p>
+  <table class="size-table"><thead><tr><th>UK / India Size</th><th>EU Size</th><th>US Size</th><th>Foot Length (CM)</th></tr></thead><tbody>
+   <tr><td>UK 6</td><td>40</td><td>7</td><td>25.1 cm</td></tr><tr><td>UK 7</td><td>41</td><td>8</td><td>25.7 cm</td></tr><tr><td>UK 8</td><td>42</td><td>9</td><td>26.4 cm</td></tr><tr><td>UK 9</td><td>43</td><td>10</td><td>27.0 cm</td></tr><tr><td>UK 10</td><td>44</td><td>11</td><td>27.7 cm</td></tr>
+  </tbody></table>
+ </div>
+</div>
+
+<div class="modal-overlay" id="accountModal" onclick="if(event.target===this)closeModal('accountModal')">
+ <div class="modal-box account-modal-box">
+  <button class="modal-close" onclick="closeModal('accountModal')">×</button>
+  <div id="accountLoginView">
+   <span class="eyebrow" style="color:#8d7041">CUSTOMER ACCOUNT</span>
+   <h3 style="font:500 27px 'Playfair Display',serif;margin:8px 0 6px">Welcome to Solanki Shoes</h3>
+   <p style="font-size:13px;color:var(--muted);margin:0 0 18px">Sign in to view and track your orders.</p>
+   <button class="google-login-btn" onclick="loginWithGoogle()"><span style="font-size:18px;font-weight:700;color:#4285F4">G</span> Continue with Google</button>
+   <div class="auth-divider">OR CONTINUE WITH EMAIL</div>
+   <div class="form-group"><label>Email Address</label><input class="account-auth-input" id="accountEmail" type="email" autocomplete="email" placeholder="you@example.com"></div>
+   <div class="form-group"><label>Password</label><input class="account-auth-input" id="accountPassword" type="password" autocomplete="current-password" placeholder="Enter password" minlength="6"></div>
+   <button class="place-order-btn" id="emailLoginBtn" onclick="loginWithEmail()">Login</button>
+   <button class="back-shop-btn" style="margin-top:15px" onclick="registerWithEmail()">Create New Account</button>
+   <button class="back-shop-btn" style="margin-left:16px" onclick="resetAccountPassword()">Forgot Password?</button>
+   <p id="loginMessage" class="account-message" aria-live="polite"></p>
+  </div>
+  <div id="accountDashboardView" style="display:none">
+   <span class="eyebrow" style="color:#8d7041">MY ACCOUNT</span>
+   <h3 style="font:500 27px 'Playfair Display',serif;margin:8px 0 4px">My Orders</h3>
+   <p id="accountPhoneLabel" style="font-size:13px;color:var(--muted);margin:0 0 18px"></p>
+   <div id="myOrdersList"><p style="font-size:13px;color:var(--muted)">Loading your orders...</p></div>
+   <button class="back-shop-btn" style="margin-top:18px" onclick="customerLogout()">Logout</button>
+  </div>
+ </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import { getFirestore, collection, getDocs, doc, getDoc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAGkJmdmxdinjnG1o3aoxchUrdOM0BzBXw",
+  authDomain: "solanki-foowear.firebaseapp.com",
+  projectId: "solanki-foowear",
+  storageBucket: "solanki-foowear.firebasestorage.app",
+  messagingSenderId: "1056432826182",
+  appId: "1:1056432826182:web:9f102961bfa83f951aa747"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+let currentCustomer = null;
+
+const FALLBACK_PRODUCTS = [
+ {id:"1",name:"Royal Tan Penny Loafers",category:"formal",tag:"Bestseller",price:1899,oldPrice:2799,rating:"★★★★★ (4.9)",desc:"Hand-finished vegan leather with cushioned memory foam insole.",material:"Premium Microfiber Leather · TPR Anti-Slip Sole",sizes:["UK 6","UK 7","UK 8","UK 9","UK 10"],img:"https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=800&q=80"},
+ {id:"2",name:"Obsidian Classic Oxfords",category:"formal",tag:"Office Essential",price:2199,oldPrice:3199,rating:"★★★★★ (4.8)",desc:"Sleek lace-up formal dress shoes built for weddings & meetings.",material:"Full-Grain Matte Finish · Breathable Inner Lining",sizes:["UK 7","UK 8","UK 9","UK 10"],img:"https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?auto=format&fit=crop&w=800&q=80"},
+ {id:"3",name:"AeroWhite Court Sneakers",category:"sneakers",tag:"Trending",price:1699,oldPrice:2499,rating:"★★★★★ (4.9)",desc:"Minimalist everyday low-top sneakers with ultra-light sole.",material:"Soft Matte PU · High-Rebound EVA Cushion Sole",sizes:["UK 6","UK 7","UK 8","UK 9","UK 10"],img:"https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80"},
+ {id:"4",name:"Crimson Velocity Runners",category:"sneakers",tag:"New Arrival",price:1999,oldPrice:2899,rating:"★★★★☆ (4.7)",desc:"Breathable knit mesh uppers with shock-absorbing street grip.",material:"Engineered Mesh · Air-Cushion Rubber Outsole",sizes:["UK 6","UK 7","UK 8","UK 9"],img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"},
+ {id:"5",name:"Nawab Gold-Thread Mojari",category:"Shoes",tag:"Wedding Edit",price:1599,oldPrice:2399,rating:"★★★★★ (5.0)",desc:"Traditional handcrafted ethnic jutti for sherwanis & kurtas.",material:"Embroidered Velvet Silk · Double-Padded Footbed",sizes:["UK 6","UK 7","UK 8","UK 9","UK 10"],img:"https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80"},
+ {id:"6",name:"Espresso Suede Tassel Loafers",category:"formal",tag:"Luxury Pick",price:2299,oldPrice:3299,rating:"★★★★★ (4.9)",desc:"Rich dark brown suede slip-ons for smart-casual evenings.",material:"Brushed Velvet Suede · Flexible Crepe Sole",sizes:["UK 7","UK 8","UK 9","UK 10"],img:"https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=800&q=80"},
+ {id:"7",name:"Midnight High-Top Street",category:"sneakers",tag:"Limited",price:2099,oldPrice:2999,rating:"★★★★☆ (4.8)",desc:"Ankle-support street sneakers with padded collar comfort.",material:"Synthetic Nubuck · Heavy-Duty Rubber Cup Sole",sizes:["UK 7","UK 8","UK 9"],img:"https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=800&q=80"},
+ {id:"8",name:"Ivory Heritage Kolhapuri",category:"Chappal",tag:"Festive",price:1399,oldPrice:1999,rating:"★★★★★ (4.8)",desc:"Classic braided festive sandals with soft cushioned heel.",material:"Hand-Braided Cruelty-Free Leather · Anti-Skid Sole",sizes:["UK 6","UK 7","UK 8","UK 9","UK 10"],img:"https://images.unsplash.com/photo-1603808033192-082d6919d3e1?auto=format&fit=crop&w=800&q=80"}
+];
+
+const CAT_ALIASES = {"loafer & formal":["formal","loafer","loafers","formal & loafers","loafers & formal","loafer and formal"],"chappal":["chappal","chappals","sandal","sandals","slipper","slippers"],"shoes":["shoe"],"sneakers":["sneaker"],"sports shoes":["sports shoe","sports","running shoes"]};
+const normCat = c => String(c || "").toLowerCase().replace(/\s*&\s*/g, " & ").replace(/\s+/g, " ").trim();
+function catKey(c) { const n = normCat(c); for (const k in CAT_ALIASES) { if (k === n || CAT_ALIASES[k].includes(n)) return k; } return n; }
+
+let PRODUCTS = [...FALLBACK_PRODUCTS];
+let selectedSizes = {};
+let currentCategory = "all";
+let cart = [];
+
+try {
+ const saved = JSON.parse(localStorage.getItem("solankiCart") || "[]");
+ cart = Array.isArray(saved) ? saved : [];
+} catch { cart = []; }
+
+const money = n => "₹" + Number(n || 0).toLocaleString("en-IN");
+
+window.enterStore = () => document.getElementById("welcome").classList.add("hide");
+setTimeout(window.enterStore, 2600);
+
+window.openProductPage = function(id) {
+ const p = PRODUCTS.find(x => String(x.id) === String(id));
+ const size = selectedSizes[id] || "";
+ try {
+  localStorage.setItem("solankiAllProducts", JSON.stringify(PRODUCTS));
+  if (p) localStorage.setItem("solankiSelectedProduct", JSON.stringify({ ...p, selectedSize: size }));
+ } catch {}
+ window.location.href = "product.html?id=" + encodeURIComponent(id) + (size ? "&size=" + encodeURIComponent(size) : "");
+};
+
+/* Card par kahin bhi click -> product page (size pills / buttons ko chhodkar) */
+window.cardClick = function(e, id) {
+ if (e.target.closest("button, .size-options, a")) return;
+ openProductPage(id);
+};
+
+function saveCart() {
+ try { localStorage.setItem("solankiCart", JSON.stringify(cart)); } catch {}
+ updateCartUI();
+}
+
+window.renderProducts = function(list) {
+ const grid = document.getElementById("productGrid");
+ if (!list.length) {
+  grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0">No shoes found matching your search.</p>';
+  return;
+ }
+ grid.innerHTML = list.map(p => {
+  const sizes = Array.isArray(p.sizes) && p.sizes.length ? p.sizes : ["UK 6","UK 7","UK 8","UK 9","UK 10"];
+  const active = selectedSizes[p.id] || sizes[1] || sizes[0];
+  selectedSizes[p.id] = active;
+  const oldPriceHtml = p.oldPrice && Number(p.oldPrice) > Number(p.price) ? `<span class="old-price">${money(p.oldPrice)}</span>` : "";
+  return `<div class="product-card tilt-card" onclick="cardClick(event,'${p.id}')">
+   <div class="product-image">
+    <span class="tag">${p.tag || (p.featured ? 'Featured' : p.category || 'New')}</span>
+    <img src="${p.img || p.image}" alt="${p.name}" loading="lazy">
+    <span class="quick-view-hint">View Details</span>
+   </div>
+   <div class="product-info">
+    <div class="rating">${p.rating || "★★★★★ (4.9)"}</div>
+    <h3>${p.name}</h3>
+    <p class="desc">${p.desc || p.description || ""}</p>
+    <div class="price-row"><span class="price">${money(p.price)}</span>${oldPriceHtml}</div>
+    <div class="size-label">Select Size:</div>
+    <div class="size-options">${sizes.map(s => `<button class="size-pill ${active === s ? 'selected' : ''}" onclick="selectSize('${p.id}','${s}')">${s}</button>`).join("")}</div>
+    <button class="add-cart-btn" style="margin-bottom:8px;background:var(--gold)" onclick="openProductPage('${p.id}')">View Product Details</button>
+    <button class="add-cart-btn" onclick="addToCart('${p.id}')">Add To Bag</button>
+   </div>
+  </div>`;
+ }).join("");
+ initTilt();
+};
+
+window.selectSize = function(id, size) {
+ selectedSizes[id] = size;
+ applyFilters();
+};
+
+window.filterCategory = function(cat, btn) {
+ currentCategory = String(cat || "all").toLowerCase();
+ document.querySelectorAll(".filter-btn").forEach(b => {
+  const bc = b.dataset.cat || "all";
+  const on = btn ? b === btn : (currentCategory === "all" ? bc === "all" : catKey(bc) === catKey(currentCategory));
+  b.classList.toggle("active", on);
+ });
+ applyFilters();
+};
+
+window.filterAndScroll = function(cat) {
+ filterCategory(cat);
+ document.getElementById("products").scrollIntoView({ behavior: "smooth" });
+};
+
+window.handleSearch = () => applyFilters();
+
+window.applyFilters = function() {
+ const query = (document.getElementById("searchInput").value || "").toLowerCase().trim();
+ renderProducts(PRODUCTS.filter(p => {
+  const pCat = (p.category || "").toLowerCase();
+  const matchCat = currentCategory === "all" || catKey(p.category) === catKey(currentCategory);
+  const matchText = (p.name || "").toLowerCase().includes(query) ||
+                    (p.desc || p.description || "").toLowerCase().includes(query) ||
+                    pCat.includes(query);
+  return matchCat && matchText;
+ }));
+};
+
+window.addToCart = function(id) {
+ const p = PRODUCTS.find(x => String(x.id) === String(id));
+ if (!p) return;
+ const sizes = Array.isArray(p.sizes) && p.sizes.length ? p.sizes : ["UK 8"];
+ const size = selectedSizes[p.id] || sizes[0];
+ const found = cart.find(x => String(x.id) === String(id) && x.size === size);
+ if (found) found.qty++;
+ else cart.push({ id: p.id, name: p.name, price: Number(p.price), img: p.img || p.image, size, qty: 1 });
+ saveCart();
+ openCart();
+};
+
+window.changeQty = function(i, d) {
+ cart[i].qty += d;
+ if (cart[i].qty <= 0) cart.splice(i, 1);
+ saveCart();
+ if (document.getElementById("checkoutPageView").classList.contains("open")) renderCheckoutSummary();
+};
+
+window.removeCartItem = function(i) {
+ cart.splice(i, 1);
+ saveCart();
+ if (document.getElementById("checkoutPageView").classList.contains("open")) renderCheckoutSummary();
+};
+
+function getCartTotals() {
+ return {
+  totalQty: cart.reduce((s, x) => s + x.qty, 0),
+  totalAmount: cart.reduce((s, x) => s + Number(x.price) * x.qty, 0)
+ };
+}
+
+window.updateCartUI = function() {
+ const { totalQty, totalAmount } = getCartTotals();
+ document.getElementById("cartCount").textContent = totalQty;
+ document.getElementById("cartTotal").textContent = money(totalAmount);
+ const el = document.getElementById("cartItemsContainer");
+ if (!cart.length) {
+  el.innerHTML = '<p style="text-align:center;color:var(--muted);margin-top:40px">Your shopping bag is empty.</p>';
+  return;
+ }
+ el.innerHTML = cart.map((x, i) => `<div class="cart-item"><img src="${x.img}" alt="${x.name}"><div class="cart-item-info">
+  <div style="display:flex;justify-content:space-between;align-items:start"><h4>${x.name}</h4><button onclick="removeCartItem(${i})" style="background:none;border:0;color:#999;font-size:16px">×</button></div>
+  <small>Size: <strong>${x.size}</strong> · ${money(x.price)} each</small>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px"><div class="qty-controls"><button onclick="changeQty(${i},-1)">-</button><span>${x.qty}</span><button onclick="changeQty(${i},1)">+</button></div><strong style="font-size:13px">${money(x.price * x.qty)}</strong></div>
+ </div></div>`).join("");
+};
+
+window.goToCheckout = function() {
+ if (!cart.length) { alert("Your shopping bag is empty. Please add shoes before clicking Buy Now."); return; }
+ closeCart();
+ document.getElementById("mainStoreView").style.display = "none";
+ document.getElementById("checkoutPageView").classList.add("open");
+ document.getElementById("checkoutFormSection").style.display = "grid";
+ document.getElementById("orderSuccessBox").style.display = "none";
+ renderCheckoutSummary();
+ window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+window.showMainStore = function() {
+ document.getElementById("checkoutPageView").classList.remove("open");
+ document.getElementById("mainStoreView").style.display = "block";
+};
+
+function renderCheckoutSummary() {
+ const { totalQty, totalAmount } = getCartTotals();
+ document.getElementById("chkItemCount").textContent = totalQty;
+ document.getElementById("chkSubtotal").textContent = money(totalAmount);
+ document.getElementById("chkGrandTotal").textContent = money(totalAmount);
+ document.getElementById("checkoutItemsList").innerHTML = cart.length ? cart.map(x => `<div class="summary-item"><div><strong>${x.name}</strong><br><small style="color:var(--muted)">Size: ${x.size} × ${x.qty}</small></div><strong>${money(x.price * x.qty)}</strong></div>`).join("") : '<p style="color:var(--muted);font-size:13px">No items in order.</p>';
+}
+
+/* SECURE ORDER CREATION - CUSTOMER MUST VERIFY MOBILE OTP */
+window.submitOrder = async function(e) {
+ e.preventDefault();
+ if (!cart.length) { alert("Your bag is empty!"); return; }
+ const customerName = document.getElementById("chkName").value.trim();
+ const phone = document.getElementById("chkPhone").value.trim().replace(/\D/g, "");
+ const customerEmail = document.getElementById("chkEmail").value.trim() || auth.currentUser?.email || "";
+ const btn = document.getElementById("confirmOrderBtn");
+ btn.disabled = true;
+ btn.textContent = "Placing Order...";
+ const address = document.getElementById("chkAddress").value.trim();
+ const city = document.getElementById("chkCity").value.trim();
+ const pincode = document.getElementById("chkPincode").value.trim();
+ const paymentMethod = document.querySelector('input[name="payMethod"]:checked').value;
+ try {
+  const token = auth.currentUser ? await auth.currentUser.getIdToken(true) : "";
+  const requestHeaders = { "Content-Type": "application/json" };
+  if (token) requestHeaders.Authorization = `Bearer ${token}`;
+  const response = await fetch("/.netlify/functions/create-order", {
+   method: "POST",
+   headers: requestHeaders,
+   body: JSON.stringify({
+    customer: { name: customerName, phone, email: customerEmail, address, city, state: "Gujarat", pincode },
+    items: cart.map(x => ({ id: x.id, size: x.size, color: x.color || "", qty: x.qty })),
+    payment: paymentMethod === "Cash on Delivery (COD)" ? "Cash on Delivery" : paymentMethod
+   })
+  });
+  const result = await response.json();
+  if (!response.ok || !result.success) throw new Error(result.error || "Order could not be placed");
+  const displayId = result.order.orderId || "SS-" + String(result.order.id || "").slice(-6).toUpperCase();
+  let ownerEmailSent = false;
+  try {
+   const emailResponse = await fetch("/.netlify/functions/send-order-email", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(result.order) });
+   const emailResult = await emailResponse.json();
+   ownerEmailSent = emailResponse.ok && emailResult.success === true;
+  } catch (emailError) { console.warn("Owner email notification failed:", emailError); }
+  document.getElementById("checkoutFormSection").style.display = "none";
+  document.getElementById("orderSuccessBox").style.display = "block";
+  document.getElementById("orderSuccessText").innerHTML = `Order ID: <strong>${displayId}</strong><br>Thank you <strong>${escapeHtml(customerName)}</strong>! Your order total is <strong>${money(result.order.total)}</strong>. ${ownerEmailSent ? "The store has been notified." : "Your order is saved; store email notification may be delayed."} Login from My Account → My Orders to track your order.`;
+  cart = []; saveCart();
+  loadMyOrders().catch(console.warn);
+ } catch (err) {
+  alert("Order error: " + err.message);
+ } finally {
+  btn.disabled = false;
+  btn.textContent = "Confirm Order";
+ }
+};
+
+window.resetAfterOrder = function() {
+ cart = [];
+ saveCart();
+ document.getElementById("orderForm").reset();
+ showMainStore();
+ window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+window.openQuickView = function(id) {
+ const p = PRODUCTS.find(x => String(x.id) === String(id));
+ if (!p) return;
+ const sizes = Array.isArray(p.sizes) && p.sizes.length ? p.sizes : ["UK 6","UK 7","UK 8","UK 9","UK 10"];
+ const active = selectedSizes[p.id] || sizes[0];
+ const oldPriceHtml = p.oldPrice && Number(p.oldPrice) > Number(p.price) ? `<span class="old-price">${money(p.oldPrice)}</span>` : "";
+ document.getElementById("qvContent").innerHTML = `<button class="modal-close" onclick="closeModal('qvModal')">×</button><div class="qv-grid">
+  <img src="${p.img || p.image}" alt="${p.name}"><div><span class="eyebrow" style="color:#8d7041">${p.tag || p.category || 'Solanki Shoes'}</span><h3 style="font:500 26px 'Playfair Display',serif;margin:8px 0">${p.name}</h3>
+  <div class="rating">${p.rating || "★★★★★ (4.9)"}</div><div class="price-row" style="margin:12px 0"><span class="price" style="font-size:20px">${money(p.price)}</span>${oldPriceHtml}</div>
+  <p style="font-size:13px;color:#555;line-height:1.7">${p.desc || p.description || ""}</p>
+  ${p.brand ? `<p style="font-size:12px;background:var(--cream);padding:10px"><strong>Brand:</strong> ${p.brand}</p>` : ""}
+  <div class="size-label">Choose UK Size:</div><div class="size-options">${sizes.map(s => `<button class="size-pill ${active === s ? 'selected' : ''}" onclick="selectSize('${p.id}','${s}');openQuickView('${p.id}')">${s}</button>`).join("")}</div>
+  <button class="add-cart-btn" style="margin-top:10px" onclick="closeModal('qvModal');addToCart('${p.id}')">Add To Bag</button></div></div>`;
+ openModal("qvModal");
+};
+
+window.toggleSearch = () => { const w = document.getElementById("searchWrap"); w.classList.toggle("open"); if (w.classList.contains("open")) document.getElementById("searchInput").focus(); };
+window.toggleMobileMenu = () => document.getElementById("mobileDrawer").classList.toggle("open");
+window.openCart = () => document.getElementById("cartOverlay").classList.add("open");
+window.closeCart = () => document.getElementById("cartOverlay").classList.remove("open");
+window.openModal = id => document.getElementById(id).classList.add("open");
+window.closeModal = id => document.getElementById(id).classList.remove("open");
+
+function initTilt() {
+ if (!window.matchMedia("(pointer:fine)").matches) return;
+ document.querySelectorAll(".tilt-card,.product-card").forEach(card => {
+  if (card.dataset.tiltReady) return;
+  card.dataset.tiltReady = "1";
+  card.addEventListener("mousemove", e => {
+   const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+   card.style.transform = `perspective(900px) rotateX(${(0.5 - y) * 8}deg) rotateY(${(x - .5) * 9}deg) translateY(-4px)`;
+  });
+  card.addEventListener("mouseleave", () => card.style.transform = "perspective(900px) rotateX(0) rotateY(0) translateY(0)");
+ });
+}
+
+const revealObserver = new IntersectionObserver(entries => {
+ entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("visible"); revealObserver.unobserve(entry.target); } });
+}, { threshold: .12 });
+document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+window.addEventListener("scroll", () => {
+ document.getElementById("siteHeader").classList.toggle("scrolled", window.scrollY > 20);
+}, { passive: true });
+
+document.addEventListener("keydown", e => {
+ if (e.key === "Escape") {
+  closeCart(); closeModal("qvModal"); closeModal("sizeModal");
+  document.getElementById("mobileDrawer").classList.remove("open");
+ }
+});
+
+/* CUSTOMER GOOGLE + EMAIL LOGIN + ORDER HISTORY */
+window.openAccount = function() {
+ openModal("accountModal");
+ if (auth.currentUser) showCustomerDashboard();
+ else { document.getElementById("accountLoginView").style.display = "block"; document.getElementById("accountDashboardView").style.display = "none"; }
+};
+
+function showAuthMessage(message, success = false) {
+ const el = document.getElementById("loginMessage");
+ if (!el) return;
+ el.style.color = success ? "#287a43" : "#9b3d2f";
+ el.textContent = message;
+}
+
+async function finishCustomerLogin(user) {
+ currentCustomer = user;
+ try {
+  const token = await user.getIdToken();
+  const res = await fetch("/.netlify/functions/link-my-orders", { method: "POST", headers: { "Authorization": `Bearer ${token}` } });
+  const data = await res.json();
+  if (!res.ok || !data.success) console.warn("Previous order linking:", data.error || "not completed");
+ } catch (err) { console.warn("Previous order linking failed:", err); }
+ showCustomerDashboard();
+}
+
+window.loginWithGoogle = async function() {
+ const btn = document.querySelector(".google-login-btn");
+ btn.disabled = true; showAuthMessage("Connecting to Google...");
+ try {
+  const result = await signInWithPopup(auth, googleProvider);
+  await finishCustomerLogin(result.user);
+ } catch (err) { showAuthMessage(err.message || "Google login failed. Please try again."); }
+ finally { btn.disabled = false; }
+};
+
+window.loginWithEmail = async function() {
+ const email = document.getElementById("accountEmail").value.trim();
+ const password = document.getElementById("accountPassword").value;
+ if (!email || !password) return showAuthMessage("Enter your email and password.");
+ const btn = document.getElementById("emailLoginBtn"); btn.disabled = true; btn.textContent = "Logging in...";
+ try {
+  const result = await signInWithEmailAndPassword(auth, email, password);
+  await finishCustomerLogin(result.user);
+ } catch (err) { showAuthMessage(err.message || "Login failed. Check your details."); }
+ finally { btn.disabled = false; btn.textContent = "Login"; }
+};
+
+window.registerWithEmail = async function() {
+ const email = document.getElementById("accountEmail").value.trim();
+ const password = document.getElementById("accountPassword").value;
+ if (!email || password.length < 6) return showAuthMessage("Enter a valid email and password (at least 6 characters).");
+ try {
+  const result = await createUserWithEmailAndPassword(auth, email, password);
+  await sendEmailVerification(result.user);
+  await finishCustomerLogin(result.user);
+  showAuthMessage("Account created. Please verify your email from your inbox.", true);
+ } catch (err) { showAuthMessage(err.message || "Could not create account."); }
+};
+
+window.resetAccountPassword = async function() {
+ const email = document.getElementById("accountEmail").value.trim();
+ if (!email) return showAuthMessage("Enter your email address first.");
+ try { await sendPasswordResetEmail(auth, email); showAuthMessage("Password reset email sent. Check your inbox.", true); }
+ catch (err) { showAuthMessage(err.message || "Could not send reset email."); }
+};
+
+function showCustomerDashboard() {
+ document.getElementById("accountLoginView").style.display = "none";
+ document.getElementById("accountDashboardView").style.display = "block";
+ const user = auth.currentUser;
+ document.getElementById("accountPhoneLabel").textContent = user?.displayName || user?.email || "Signed-in customer";
+ const emailInput = document.getElementById("chkEmail");
+ if (emailInput && user?.email && !emailInput.value) emailInput.value = user.email;
+ loadMyOrders();
+}
+
+window.loadMyOrders = async function() {
+ const target = document.getElementById("myOrdersList");
+ if (!auth.currentUser) return;
+ target.innerHTML = '<p style="font-size:13px;color:var(--muted)">Loading your orders...</p>';
+ try {
+  const q = query(collection(db, "orders"), where("customerUid", "==", auth.currentUser.uid));
+  const snap = await getDocs(q);
+  const orders = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a,b) => {
+   const av = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+   const bv = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0; return bv-av;
+  });
+  if (!orders.length) { target.innerHTML = '<p style="font-size:13px;color:var(--muted);padding:16px 0">No orders found for this account yet.</p>'; return; }
+  target.innerHTML = orders.map(o => {
+   const id = o.orderId || ("SS-" + o.id.slice(-6).toUpperCase());
+   const status = o.status || o.orderStatus || "Pending";
+   const items = (o.items || []).map(i => `${escapeHtml(i.name || "Product")} × ${Number(i.qty || 1)}${i.size ? ` · ${escapeHtml(i.size)}` : ""}`).join("<br>");
+   const date = o.createdAt?.toDate ? o.createdAt.toDate().toLocaleDateString("en-IN") : "Date unavailable";
+   return `<div class="order-history-card"><div class="order-history-top"><span class="order-history-id">${escapeHtml(id)}</span><span class="order-status-pill">${escapeHtml(status)}</span></div><p>${date} · ${money(Number(o.total || 0))}</p><div class="order-history-items">${items}</div></div>`;
+  }).join("");
+ } catch (err) { target.innerHTML = `<p class="account-message">Unable to load orders: ${escapeHtml(err.message)}</p>`; }
+};
+
+function escapeHtml(value) { return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+window.customerLogout = async function() {
+ await signOut(auth);
+ document.getElementById("accountDashboardView").style.display = "none";
+ document.getElementById("accountLoginView").style.display = "block";
+ showAuthMessage("You have been logged out.", true);
+};
+
+onAuthStateChanged(auth, user => {
+ currentCustomer = user || null;
+ const btn = document.getElementById("accountNavBtn");
+ if (btn) { const label = btn.querySelector(".account-text"); if (label) label.textContent = user ? "My Orders" : "Account"; }
+ if (user && document.getElementById("accountModal").classList.contains("open")) showCustomerDashboard();
+});
+
+/* SYNC WITH ADMIN PANEL FIRESTORE DATA */
+async function syncWithAdmin() {
+ try {
+  const prodSnap = await getDocs(collection(db, "products"));
+  const liveProducts = prodSnap.docs
+   .map(d => ({ id: d.id, ...d.data() }))
+   .filter(p => p.active !== false)
+   .map(p => {
+    const imgs = (Array.isArray(p.images) && p.images.length ? p.images : [p.image || p.imageUrl || p.photo]).filter(Boolean);
+    return {
+    ...p,
+    images: imgs,
+    img: imgs[0] || "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+    oldPrice: p.originalPrice || 0,
+    desc: p.description || ""
+   };});
+
+  if (liveProducts.length > 0) {
+   PRODUCTS = liveProducts;
+   applyFilters();
+  }
+
+  const [annSnap, bannerSnap, genSnap] = await Promise.all([
+   getDoc(doc(db, "siteSettings", "announcement")),
+   getDoc(doc(db, "siteSettings", "homeBanner")),
+   getDoc(doc(db, "siteSettings", "general"))
+  ]);
+
+  if (annSnap.exists()) {
+   const a = annSnap.data();
+   const bar = document.getElementById("announcementBar");
+   if (a.enabled === false) bar.style.display = "none";
+   else if (a.text) bar.textContent = a.text;
+  }
+
+  if (bannerSnap.exists()) {
+   const b = bannerSnap.data();
+   if (b.title) document.getElementById("heroTitle").textContent = b.title;
+   if (b.subtitle) document.getElementById("heroSubtitle").textContent = b.subtitle;
+   if (b.mediaType === "video" && b.videoUrl) {
+    const v = document.getElementById("homeHeroVideo");
+    v.innerHTML = "";
+    v.src = b.videoUrl;
+    if (b.posterUrl) v.poster = b.posterUrl;
+    v.style.display = "";
+    document.getElementById("homeBannerImg").style.display = "none";
+    v.load();
+    v.play().catch(() => {});
+   } else if (b.imageUrl) {
+    const img = document.getElementById("homeBannerImg");
+    img.src = b.imageUrl;
+    img.style.display = "block";
+    document.getElementById("homeHeroVideo").style.display = "none";
+   }
+  }
+
+  if (genSnap.exists()) {
+   const g = genSnap.data();
+   if (g.address || g.phone || g.email) {
+    document.getElementById("footerStoreContact").innerHTML = `${g.address || "Main Market Road, Gujarat, India"}<br>Mon – Sun: 10:00 AM – 9:00 PM<br>Phone: ${g.phone || "+91 98765 43210"}<br>Email: ${g.email || "support@solankishoes.in"}`;
+   }
+
+   // Optional footer links can be managed from siteSettings/general in Firestore.
+   if (g.instagramUrl) {
+    document.getElementById("footerInstagramLink").href = g.instagramUrl;
+   }
+   if (g.instagramId) {
+    document.getElementById("footerInstagramId").textContent =
+     g.instagramId.startsWith("@") ? g.instagramId : "@" + g.instagramId;
+   }
+   if (g.googleMapUrl) {
+    document.getElementById("footerMapLink").href = g.googleMapUrl;
+   }
+  }
+ } catch (err) {
+  console.warn("Firebase sync error:", err);
+ }
+}
+
+renderProducts(PRODUCTS);
+updateCartUI();
+if (new URLSearchParams(window.location.search).get("checkout") === "1" && cart.length > 0) {
+ goToCheckout();
+}
+syncWithAdmin();
+</script>
+</body>
+</html>
