@@ -464,6 +464,72 @@ body{background:#fff;color:#171612}
 }
 @media(max-width:380px){.footer-grid{grid-template-columns:1fr!important}}
 
+
+
+/* ANNOUNCEMENT MARQUEE */
+.announcement{height:34px;min-height:34px;display:block;overflow:hidden;white-space:nowrap;padding:0;position:relative}
+.announcement-track{height:34px;width:max-content;display:flex;align-items:center;gap:30px;padding-left:24px;animation:announcementMove 34s linear infinite}
+.announcement-track span{font-size:9px;font-weight:600;letter-spacing:1.7px;color:#ead9b8}
+.announcement-track i{font-style:normal;color:#b99a62;font-size:12px}
+.announcement:hover .announcement-track{animation-play-state:paused}
+@keyframes announcementMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SPLIT IMAGE CATEGORY CARDS */
+.category{border-radius:3px;isolation:isolate}
+.category-image-main,.category-image-split{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.category-image-main{z-index:-2}
+.category-image-split{z-index:-1;clip-path:inset(0 0 0 50%);filter:brightness(.78) saturate(.75);border-left:2px solid rgba(255,255,255,.8)}
+.category:before{content:"";position:absolute;z-index:0;top:0;bottom:0;left:50%;width:1px;background:#ffffffb8;pointer-events:none}
+.category:after{z-index:0}
+.category-label{z-index:2}
+
+/* COMPACT PRODUCT CARDS */
+.products{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.product-card{min-width:0;border-radius:3px;overflow:hidden}
+.product-image{height:205px;transform:none}
+.product-info{padding:12px}
+.product-info h3{font-size:14px}
+.product-info p.desc{font-size:10px;line-height:1.5;margin-bottom:8px}
+.price-row{margin-bottom:9px;gap:6px}
+.price{font-size:14px}
+.old-price{font-size:10px}
+.size-options{gap:4px;margin-bottom:10px}
+.size-pill{padding:4px 6px;font-size:10px}
+.add-cart-btn{padding:10px 6px;font-size:9px}
+.quick-view-hint{display:none!important}
+.product-card{cursor:pointer}
+.product-card .product-info button{cursor:pointer}
+
+/* NUMBERED PAGINATION */
+.pagination{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;margin:28px auto 0;min-height:38px}
+.pagination button{min-width:36px;height:36px;padding:0 11px;border:1px solid #e3dccf;background:#fff;color:#292722;font-size:12px;transition:.2s}
+.pagination button:hover,.pagination button.active{background:#171612;border-color:#171612;color:#ead9b5}
+.pagination button:disabled{opacity:.35;cursor:not-allowed}
+.pagination .page-dots{color:#888;padding:0 3px;font-size:12px}
+@media(max-width:1100px){.products{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:900px){.products{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){
+ .announcement-track{gap:22px;animation-duration:27s}
+ .announcement-track span{font-size:8px;letter-spacing:1.25px}
+ .categories{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .category{height:178px!important;grid-column:auto!important}
+ .categories .category:last-child{grid-column:1/-1!important;height:150px!important}
+ .category-label h3{font-size:16px}
+ .category-label{left:11px;bottom:12px}
+ .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .product-image{height:150px}
+ .product-info{padding:9px}
+ .product-info h3{font-size:12px;line-height:1.35}
+ .product-info p.desc{font-size:9px;line-height:1.4}
+ .rating{font-size:10px}
+ .size-label{font-size:9px}
+ .size-pill{font-size:9px;padding:4px 5px}
+ .add-cart-btn{font-size:8px;padding:10px 4px;letter-spacing:.8px}
+ .pagination{gap:6px;margin-top:22px}
+ .pagination button{min-width:33px;height:34px;padding:0 8px}
+}
+@media(max-width:380px){.products{grid-template-columns:repeat(2,minmax(0,1fr))}.product-image{height:135px}.product-info{padding:8px}}
+
 </style>
 </head>
 
@@ -478,7 +544,18 @@ body{background:#fff;color:#171612}
  </div>
 </div>
 
-<div class="announcement" id="announcementBar">FREE SHIPPING ACROSS INDIA  ·  PREMIUM FOOTWEAR  ·  COD AVAILABLE</div>
+<div class="announcement" id="announcementBar" aria-label="Store announcements">
+ <div class="announcement-track" id="announcementTrack">
+  <span> CASH ON DELIVERY AVAILABLE </span><i>✦</i>
+  <span> FREE SHIPPING </span><i>✦</i>
+  <span> SECURE ONLINE PAYMENTS </span><i>✦</i>
+  <span> CUSTOMER SUPPORT AVAILABLE </span><i>✦</i>
+  <span> CASH ON DELIVERY AVAILABLE </span><i>✦</i>
+  <span> FREE SHIPPING </span><i>✦</i>
+  <span> SECURE ONLINE PAYMENTS </span><i>✦</i>
+  <span> CUSTOMER SUPPORT AVAILABLE </span><i>✦</i>
+ </div>
+</div>
 
 <header class="site-header" id="siteHeader">
  <button class="menu-btn" aria-label="Open menu" onclick="toggleMobileMenu()">☰</button>
@@ -565,23 +642,23 @@ body{background:#fff;color:#171612}
  </div>
  <div class="categories">
   <div class="category tilt-card" onclick="filterAndScroll('Loafer & Formal')">
-   <img src="https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=900&q=80" alt="Formal & Loafers">
+   <img class="category-image-main" src="https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=900&q=80" alt="Formal & Loafers"><img class="category-image-split" aria-hidden="true" src="https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=900&q=80" alt="Formal & Loafers">
    <div class="category-label"><h3>Formal & Loafers</h3><span>Explore Style →</span></div>
   </div>
   <div class="category tilt-card" onclick="filterAndScroll('Chappal')">
-   <img src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?auto=format&fit=crop&w=900&q=80" alt="Chappal & Sandals">
+   <img class="category-image-main" src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?auto=format&fit=crop&w=900&q=80" alt="Chappal & Sandals"><img class="category-image-split" aria-hidden="true" src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?auto=format&fit=crop&w=900&q=80" alt="Chappal & Sandals">
    <div class="category-label"><h3>Chappal & Sandals</h3><span>Explore Style →</span></div>
   </div>
   <div class="category tilt-card" onclick="filterAndScroll('Shoes')">
-   <img src="https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?auto=format&fit=crop&w=900&q=80" alt="Everyday Shoes">
+   <img class="category-image-main" src="https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?auto=format&fit=crop&w=900&q=80" alt="Everyday Shoes"><img class="category-image-split" aria-hidden="true" src="https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?auto=format&fit=crop&w=900&q=80" alt="Everyday Shoes">
    <div class="category-label"><h3>Everyday Shoes</h3><span>Explore Style →</span></div>
   </div>
   <div class="category tilt-card" onclick="filterAndScroll('Sneakers')">
-   <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=80" alt="Urban Sneakers">
+   <img class="category-image-main" src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=80" alt="Urban Sneakers"><img class="category-image-split" aria-hidden="true" src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=80" alt="Urban Sneakers">
    <div class="category-label"><h3>Urban Sneakers</h3><span>Explore Style →</span></div>
   </div>
   <div class="category tilt-card" onclick="filterAndScroll('Sports Shoes')">
-   <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80" alt="Sports Shoes">
+   <img class="category-image-main" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80" alt="Sports Shoes"><img class="category-image-split" aria-hidden="true" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80" alt="Sports Shoes">
    <div class="category-label"><h3>Sports Shoes</h3><span>Explore Style →</span></div>
   </div>
  </div>
@@ -604,6 +681,7 @@ body{background:#fff;color:#171612}
   <button class="size-guide-btn" onclick="openModal('sizeModal')">📏 Size Guide (UK/CM)</button>
  </div>
  <div class="products" id="productGrid"></div>
+ <nav class="pagination" id="productPagination" aria-label="Product pages"></nav>
 </section>
 
 <section class="section reviews-section reveal" id="reviews">
@@ -826,41 +904,83 @@ function saveCart() {
  updateCartUI();
 }
 
+const PRODUCTS_PER_PAGE = 10;
+let currentPage = 1;
+let filteredProducts = [];
+
+function renderPagination(totalItems) {
+ const nav = document.getElementById("productPagination");
+ const totalPages = Math.ceil(totalItems / PRODUCTS_PER_PAGE);
+ if (!nav) return;
+ if (totalPages <= 1) { nav.innerHTML = ""; return; }
+ const makeButton = (label, page, disabled = false, active = false) =>
+  `<button type="button" ${active ? 'class="active" aria-current="page"' : ''} ${disabled ? 'disabled' : ''} onclick="goToProductPage(${page})">${label}</button>`;
+ let html = makeButton("‹", currentPage - 1, currentPage === 1);
+ let pages = [];
+ if (totalPages <= 7) pages = Array.from({length: totalPages}, (_, i) => i + 1);
+ else {
+  pages = [1];
+  if (currentPage > 3) pages.push("dots-left");
+  for (let p = Math.max(2, currentPage - 1); p <= Math.min(totalPages - 1, currentPage + 1); p++) pages.push(p);
+  if (currentPage < totalPages - 2) pages.push("dots-right");
+  pages.push(totalPages);
+ }
+ pages.forEach(p => {
+  if (typeof p === "string") html += '<span class="page-dots">…</span>';
+  else html += makeButton(p, p, false, p === currentPage);
+ });
+ html += makeButton("›", currentPage + 1, currentPage === totalPages);
+ nav.innerHTML = html;
+}
+
+window.goToProductPage = function(page) {
+ const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE));
+ currentPage = Math.min(Math.max(1, Number(page) || 1), totalPages);
+ renderProducts(filteredProducts);
+ document.getElementById("products").scrollIntoView({behavior:"smooth", block:"start"});
+};
+
 window.renderProducts = function(list) {
  const grid = document.getElementById("productGrid");
- if (!list.length) {
+ filteredProducts = Array.isArray(list) ? list : [];
+ const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE));
+ if (currentPage > totalPages) currentPage = totalPages;
+ const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
+ const pageItems = filteredProducts.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
+ if (!pageItems.length) {
   grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0">No shoes found matching your search.</p>';
+  renderPagination(filteredProducts.length);
   return;
  }
- grid.innerHTML = list.map(p => {
+ grid.innerHTML = pageItems.map(p => {
   const sizes = Array.isArray(p.sizes) && p.sizes.length ? p.sizes : ["UK 6","UK 7","UK 8","UK 9","UK 10"];
   const active = selectedSizes[p.id] || sizes[1] || sizes[0];
   selectedSizes[p.id] = active;
   const oldPriceHtml = p.oldPrice && Number(p.oldPrice) > Number(p.price) ? `<span class="old-price">${money(p.oldPrice)}</span>` : "";
-  return `<div class="product-card tilt-card" onclick="cardClick(event,'${p.id}')">
+  const safeId = String(p.id).replace(/'/g, "\\'");
+  return `<div class="product-card tilt-card" role="link" tabindex="0" aria-label="View ${escapeHtml(p.name || 'product')}" onclick="cardClick(event,'${safeId}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProductPage('${safeId}')}" >
    <div class="product-image">
-    <span class="tag">${p.tag || (p.featured ? 'Featured' : p.category || 'New')}</span>
-    <img src="${p.img || p.image}" alt="${p.name}" loading="lazy">
-    <span class="quick-view-hint">View Details</span>
+    <span class="tag">${escapeHtml(p.tag || (p.featured ? 'Featured' : p.category || 'New'))}</span>
+    <img src="${escapeHtml(p.img || p.image || '')}" alt="${escapeHtml(p.name || 'Footwear')}" loading="lazy">
    </div>
    <div class="product-info">
-    <div class="rating">${p.rating || "★★★★★ (4.9)"}</div>
-    <h3>${p.name}</h3>
-    <p class="desc">${p.desc || p.description || ""}</p>
+    <div class="rating">${escapeHtml(p.rating || "★★★★★ (4.9)")}</div>
+    <h3>${escapeHtml(p.name || 'Footwear')}</h3>
+    <p class="desc">${escapeHtml(p.desc || p.description || "")}</p>
     <div class="price-row"><span class="price">${money(p.price)}</span>${oldPriceHtml}</div>
     <div class="size-label">Select Size:</div>
-    <div class="size-options">${sizes.map(s => `<button class="size-pill ${active === s ? 'selected' : ''}" onclick="selectSize('${p.id}','${s}')">${s}</button>`).join("")}</div>
-    <button class="add-cart-btn" style="margin-bottom:8px;background:var(--gold)" onclick="openProductPage('${p.id}')">View Product Details</button>
-    <button class="add-cart-btn" onclick="addToCart('${p.id}')">Add To Bag</button>
+    <div class="size-options">${sizes.map(s => `<button type="button" class="size-pill ${active === s ? 'selected' : ''}" onclick="event.stopPropagation();selectSize('${safeId}','${String(s).replace(/'/g, "\\'")}')">${escapeHtml(s)}</button>`).join("")}</div>
+    <button type="button" class="add-cart-btn" onclick="event.stopPropagation();addToCart('${safeId}')">Add To Bag</button>
    </div>
   </div>`;
  }).join("");
+ renderPagination(filteredProducts.length);
  initTilt();
 };
 
 window.selectSize = function(id, size) {
  selectedSizes[id] = size;
- applyFilters();
+ applyFilters(false);
 };
 
 window.filterCategory = function(cat, btn) {
@@ -870,7 +990,7 @@ window.filterCategory = function(cat, btn) {
   const on = btn ? b === btn : (currentCategory === "all" ? bc === "all" : catKey(bc) === catKey(currentCategory));
   b.classList.toggle("active", on);
  });
- applyFilters();
+ applyFilters(true);
 };
 
 window.filterAndScroll = function(cat) {
@@ -878,18 +998,20 @@ window.filterAndScroll = function(cat) {
  document.getElementById("products").scrollIntoView({ behavior: "smooth" });
 };
 
-window.handleSearch = () => applyFilters();
+window.handleSearch = () => applyFilters(true);
 
-window.applyFilters = function() {
+window.applyFilters = function(resetPage = true) {
+ if (resetPage) currentPage = 1;
  const query = (document.getElementById("searchInput").value || "").toLowerCase().trim();
- renderProducts(PRODUCTS.filter(p => {
+ const result = PRODUCTS.filter(p => {
   const pCat = (p.category || "").toLowerCase();
   const matchCat = currentCategory === "all" || catKey(p.category) === catKey(currentCategory);
   const matchText = (p.name || "").toLowerCase().includes(query) ||
                     (p.desc || p.description || "").toLowerCase().includes(query) ||
                     pCat.includes(query);
   return matchCat && matchText;
- }));
+ });
+ renderProducts(result);
 };
 
 window.addToCart = function(id) {
@@ -1219,7 +1341,13 @@ async function syncWithAdmin() {
    const a = annSnap.data();
    const bar = document.getElementById("announcementBar");
    if (a.enabled === false) bar.style.display = "none";
-   else if (a.text) bar.textContent = a.text;
+   else if (a.text) {
+    const track = document.getElementById("announcementTrack");
+    if (track) {
+     const message = String(a.text).replace(/\s*[·•|]\s*/g, "  ✦  ").trim();
+     track.innerHTML = `<span>${escapeHtml(message)}</span><i>✦</i><span>${escapeHtml(message)}</span><i>✦</i>`;
+    } else bar.textContent = a.text;
+   }
   }
 
   if (bannerSnap.exists()) {
