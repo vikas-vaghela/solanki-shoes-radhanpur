@@ -530,6 +530,58 @@ body{background:#fff;color:#171612}
 }
 @media(max-width:380px){.products{grid-template-columns:repeat(2,minmax(0,1fr))}.product-image{height:135px}.product-info{padding:8px}}
 
+
+/* MOBILE HEADER, HERO SPACING, SPLIT OCCASION TILES & FOOTER */
+.header-hero-spacer{height:14px;background:#f5f5f5;border-top:1px solid #ededed;border-bottom:1px solid #e9e9e9}
+.split-category-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.category-pair{height:300px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;border-radius:5px;background:#111;box-shadow:0 8px 24px #00000012}
+.category-pair.category-single{grid-column:1/-1;height:210px;grid-template-columns:1fr}
+.category-half{position:relative;min-width:0;border:0;padding:0;overflow:hidden;cursor:pointer;text-align:left;background-image:linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,.04) 75%),var(--category-image);background-position:center;background-size:cover;transition:filter .25s,transform .35s}
+.category-half+.category-half{border-left:2px solid rgba(255,255,255,.8)}
+.category-half:active{filter:brightness(.85)}
+.category-half-label{position:absolute;left:13px;right:8px;bottom:17px;color:#fff;display:flex;flex-direction:column;gap:6px}
+.category-half-label strong{font:500 18px/1.15 'Playfair Display',serif;text-shadow:0 2px 8px #0008}
+.category-half-label small{font:600 9px/1.3 Arial,sans-serif;letter-spacing:1.3px;text-transform:uppercase;color:#e7d1a4}
+.category-single .category-half-label strong{font-size:22px}
+@media(max-width:760px){
+ .site-header{height:76px!important;display:flex!important;justify-content:space-between!important;position:sticky}
+ .menu-btn{flex:0 0 34px!important;width:34px!important;z-index:2}
+ .brand-wrap{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:142px!important;max-width:142px!important;justify-content:center!important}
+ .brand-logo{width:138px!important;max-width:138px!important;max-height:48px!important}
+ .nav-right{position:absolute!important;right:15px!important;top:50%!important;transform:translateY(-50%)!important;display:flex!important;align-items:center!important;gap:15px!important;width:auto!important}
+ .nav-right .icon-link{display:flex!important;align-items:center!important;justify-content:center!important;width:24px!important;height:34px!important;padding:0!important}
+ .nav-right .icon{width:22px!important;height:22px!important}
+ .nav-right .cart-badge{display:none!important}
+ .nav-right .search-text,.nav-right .cart-text,.nav-right .account-text{display:none!important}
+ .header-hero-spacer{height:14px}
+ .hero{margin-top:0!important;min-height:510px!important;align-items:flex-end!important}
+ .hero-copy{padding:58px 22px 42px!important}
+ .split-category-grid{grid-template-columns:1fr;gap:12px}
+ .category-pair{height:210px!important}
+ .category-pair.category-single{grid-column:auto;height:170px!important}
+ .category-half-label{left:12px;right:7px;bottom:14px}
+ .category-half-label strong{font-size:16px}
+ .category-half-label small{font-size:8px;letter-spacing:1px}
+ .category-single .category-half-label strong{font-size:19px}
+ .footer{padding:32px 18px 18px!important}
+ .footer-grid{grid-template-columns:1fr 1fr!important;gap:22px 16px!important}
+ .footer-grid>div:first-child,.footer-grid>div:last-child{grid-column:1/-1!important}
+ .footer-grid h4{font-size:10px!important;letter-spacing:1.4px!important;margin-bottom:12px!important}
+ .footer-grid p,.footer-grid a,.footer-grid button{font-size:11px!important;line-height:1.7!important}
+ .footer-grid a,.footer-grid button.footer-link{margin:8px 0!important}
+ .footer-tools{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px 10px!important}
+ .footer-payment-info{grid-column:1/-1!important}
+ .copyright{font-size:9px!important;line-height:1.6!important;letter-spacing:.8px!important;text-align:center!important}
+}
+@media(max-width:380px){
+ .brand-wrap{width:126px!important}
+ .brand-logo{width:124px!important}
+ .nav-right{right:10px!important;gap:11px!important}
+ .menu-btn{width:30px!important;flex-basis:30px!important}
+ .category-pair{height:190px!important}
+ .category-half-label strong{font-size:14px}
+}
+
 </style>
 </head>
 
@@ -588,6 +640,7 @@ body{background:#fff;color:#171612}
   <button onclick="toggleSearch()">Close</button>
  </div>
 </div>
+<div class="header-hero-spacer" aria-hidden="true"></div>
 
 <div class="mobile-drawer" id="mobileDrawer" onclick="if(event.target===this)toggleMobileMenu()">
  <div class="mobile-panel">
@@ -640,26 +693,27 @@ body{background:#fff;color:#171612}
   <span class="eyebrow">Curated Categories</span><h2>Shop By Occasion</h2>
   <p>Click any category to filter our signature footwear collection</p>
  </div>
- <div class="categories">
-  <div class="category tilt-card" onclick="filterAndScroll('Loafer & Formal')">
-   <img class="category-image-main" src="https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=900&q=80" alt="Formal & Loafers"><img class="category-image-split" aria-hidden="true" src="https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=900&q=80" alt="Formal & Loafers">
-   <div class="category-label"><h3>Formal & Loafers</h3><span>Explore Style →</span></div>
+ <div class="categories split-category-grid">
+  <div class="category-pair">
+   <button class="category-half" type="button" onclick="filterAndScroll('Loafer & Formal')" style="--category-image:url('https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=900&q=80')">
+    <span class="category-half-label"><strong>Formal & Loafers</strong><small>Explore Style →</small></span>
+   </button>
+   <button class="category-half" type="button" onclick="filterAndScroll('Shoes')" style="--category-image:url('https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?auto=format&fit=crop&w=900&q=80')">
+    <span class="category-half-label"><strong>Everyday Shoes</strong><small>Explore Style →</small></span>
+   </button>
   </div>
-  <div class="category tilt-card" onclick="filterAndScroll('Chappal')">
-   <img class="category-image-main" src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?auto=format&fit=crop&w=900&q=80" alt="Chappal & Sandals"><img class="category-image-split" aria-hidden="true" src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?auto=format&fit=crop&w=900&q=80" alt="Chappal & Sandals">
-   <div class="category-label"><h3>Chappal & Sandals</h3><span>Explore Style →</span></div>
+  <div class="category-pair">
+   <button class="category-half" type="button" onclick="filterAndScroll('Chappal')" style="--category-image:url('https://images.unsplash.com/photo-1603808033192-082d6919d3e1?auto=format&fit=crop&w=900&q=80')">
+    <span class="category-half-label"><strong>Chappal & Sandals</strong><small>Explore Style →</small></span>
+   </button>
+   <button class="category-half" type="button" onclick="filterAndScroll('Sneakers')" style="--category-image:url('https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=80')">
+    <span class="category-half-label"><strong>Urban Sneakers</strong><small>Explore Style →</small></span>
+   </button>
   </div>
-  <div class="category tilt-card" onclick="filterAndScroll('Shoes')">
-   <img class="category-image-main" src="https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?auto=format&fit=crop&w=900&q=80" alt="Everyday Shoes"><img class="category-image-split" aria-hidden="true" src="https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?auto=format&fit=crop&w=900&q=80" alt="Everyday Shoes">
-   <div class="category-label"><h3>Everyday Shoes</h3><span>Explore Style →</span></div>
-  </div>
-  <div class="category tilt-card" onclick="filterAndScroll('Sneakers')">
-   <img class="category-image-main" src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=80" alt="Urban Sneakers"><img class="category-image-split" aria-hidden="true" src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=80" alt="Urban Sneakers">
-   <div class="category-label"><h3>Urban Sneakers</h3><span>Explore Style →</span></div>
-  </div>
-  <div class="category tilt-card" onclick="filterAndScroll('Sports Shoes')">
-   <img class="category-image-main" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80" alt="Sports Shoes"><img class="category-image-split" aria-hidden="true" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80" alt="Sports Shoes">
-   <div class="category-label"><h3>Sports Shoes</h3><span>Explore Style →</span></div>
+  <div class="category-pair category-single">
+   <button class="category-half" type="button" onclick="filterAndScroll('Sports Shoes')" style="--category-image:url('https://images.unsplash.com/photo-1465453869711-7e174808ace9?auto=format&fit=crop&w=1200&q=80')">
+    <span class="category-half-label"><strong>Sports Shoes</strong><small>Explore Style →</small></span>
+   </button>
   </div>
  </div>
 </section>
